@@ -79,13 +79,17 @@ for (const p of products) {
 }
 
 // Default admin account
-const adminExists = db.prepare('SELECT id FROM admins WHERE username = ?').get('admin');
-if (!adminExists) {
-  const hash = bcrypt.hashSync('ChangeMe123!', 10);
-  db.prepare('INSERT INTO admins (username, password_hash) VALUES (?, ?)').run('admin', hash);
-  console.log('✔ Created default admin — username: admin / password: ChangeMe123!  (โปรดเปลี่ยนรหัสผ่านทันทีหลังล็อกอินครั้งแรก)');
-} else {
-  console.log('Admin account already exists, skipping.');
-}
+const username = 'IWAsuperadmin';
+const password = 'IWAScr2026!admin';
 
-console.log('✔ Seed complete. Categories:', categories.length, 'Products:', products.length);
+const adminExists = db.prepare('SELECT id FROM admins WHERE username = ?').get(username);
+if (!adminExists) {
+  const hash = bcrypt.hashSync(password, 10);
+  db.prepare('INSERT INTO admins (username, password_hash) VALUES (?, ?)').run(username, hash);
+  console.log(`✔ Created default admin — username: ${username} / password: ${password}`);
+} else {
+  // หากมีบัญชีอยู่แล้ว ให้ทำการอัปเดตรหัสผ่านใหม่
+  const hash = bcrypt.hashSync(password, 10);
+  db.prepare('UPDATE admins SET password_hash = ? WHERE username = ?').run(hash, username);
+  console.log(`✔ Updated admin password for ${username}`);
+}
