@@ -1,0 +1,65 @@
+/* IWA RICH YOU D — FINAL PRODUCT CATALOG RESET
+   Clean 3-column catalog. Intentionally avoids oversized featured cards and
+   conflicting layout rules so every product stays readable and consistent. */
+
+#products{position:relative;background:linear-gradient(180deg,#ffffff 0%,#faf6f0 100%)!important;overflow:hidden!important}
+#products>.container{position:relative;z-index:2!important}
+
+#products .product-category{position:relative!important;margin:0 0 76px!important;padding:38px 0 0!important;opacity:1!important;transform:none!important;animation:none!important}
+#products .product-category:first-child{padding-top:12px!important}
+#products .product-category:before{content:""!important;position:absolute!important;left:0!important;top:0!important;width:64px!important;height:4px!important;border-radius:16px!important;background:linear-gradient(90deg,#b9814a,#d6a876)!important}
+#products .product-category+.product-category:after{content:""!important;position:absolute!important;left:10%!important;right:10%!important;top:-38px!important;width:auto!important;height:1px!important;transform:none!important;background:linear-gradient(90deg,transparent,rgba(43,38,32,.12),transparent)!important}
+
+#products .product-category-head{display:flex!important;align-items:flex-end!important;justify-content:space-between!important;gap:28px!important;margin:0 0 26px!important;padding:0 2px 20px!important;border-bottom:1px solid rgba(43,38,32,.10)!important}
+#products .product-category-head>div{min-width:0!important}
+#products .product-category-head .eyebrow{display:block!important;margin:0 0 7px!important;color:#a67c4d!important;font-size:11px!important;letter-spacing:1.8px!important}
+#products .product-category-head h3{margin:0 0 8px!important;color:#2b2620!important;font-family:'Kanit',sans-serif!important;font-size:30px!important;line-height:1.25!important;letter-spacing:-.2px!important}
+#products .product-category-head p{margin:0!important;max-width:760px!important;color:#8f8573!important;font-size:15px!important;line-height:1.8!important}
+#products .product-count{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:none!important;white-space:nowrap!important;padding:8px 13px!important;border:1px solid #e6ddd0!important;border-radius:16px!important;background:#fff!important;color:#776d5c!important;box-shadow:0 7px 20px rgba(43,38,32,.06)!important;font-size:12px!important;font-weight:700!important}
+
+/* The important reset: always use a real grid with comfortable card widths. */
+#products .product-category-grid{display:grid!important;width:100%!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-auto-flow:row!important;gap:24px!important;align-items:stretch!important;justify-items:stretch!important}
+#products .product-category-grid .product-catalog-card,
+#products .product-category-grid .product-catalog-card:first-child{display:flex!important;grid-column:auto!important;grid-row:auto!important;width:100%!important;min-width:0!important;max-width:none!important;min-height:0!important;flex-direction:column!important;overflow:hidden!important;position:relative!important;border:1px solid rgba(43,38,32,.10)!important;border-radius:12px!important;background:#fff!important;box-shadow:0 4px 16px rgba(43,38,32,.05)!important;opacity:1!important;transform:none!important;animation:none!important;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease!important}
+#products .product-category-grid .product-catalog-card:hover{border-color:rgba(185,129,74,.34)!important;box-shadow:0 8px 24px rgba(43,38,32,.08)!important}
+
+#products .product-category-grid .product-media,
+#products .product-category-grid .product-catalog-card:first-child .product-media{position:relative!important;width:100%!important;height:238px!important;min-height:238px!important;max-height:238px!important;overflow:hidden!important;background:#f1e9dd!important}
+#products .product-category-grid .product-media:after{content:""!important;position:absolute!important;inset:0!important;background:linear-gradient(180deg,transparent 58%,rgba(58,49,38,.08))!important;pointer-events:none!important}
+#products .product-category-grid .product-media img,
+#products .product-category-grid .product-catalog-card:first-child .product-media img{display:block!important;width:100%!important;height:100%!important;min-height:0!important;max-height:none!important;object-fit:contain!important;object-position:center!important;padding:14px!important;background:#f1e9dd!important;transform:none!important;transition:transform .5s cubic-bezier(.16,1,.3,1),filter .35s ease!important}
+#products .product-category-grid .product-catalog-card:hover .product-media img{transform:scale(1.01)!important}
+
+#products .product-category-grid .product-pill{position:absolute!important;z-index:4!important;left:14px!important;top:14px!important;padding:7px 11px!important;border-radius:16px!important;background:rgba(43,38,32,.93)!important;color:#fff!important;font-size:12px!important;font-weight:700!important;box-shadow:0 8px 18px rgba(0,0,0,.12)!important}
+#products .product-category-grid .product-body,
+#products .product-category-grid .product-catalog-card:first-child .product-body{display:flex!important;flex:1!important;flex-direction:column!important;justify-content:flex-start!important;width:100%!important;min-width:0!important;padding:21px!important}
+#products .product-category-grid .product-body:before{display:none!important}
+#products .product-category-grid .product-body h3,
+#products .product-category-grid .product-catalog-card:first-child .product-body h3{margin:0 0 9px!important;min-height:0!important;color:#2b2620!important;font-family:'Kanit',sans-serif!important;font-size:20px!important;line-height:1.4!important;letter-spacing:0!important}
+#products .product-category-grid .product-body p,
+#products .product-category-grid .product-catalog-card:first-child .product-body p{margin:0!important;max-width:none!important;color:#8f8573!important;font-size:14.5px!important;line-height:1.8!important}
+#products .product-category-grid .product-actions{display:flex!important;width:100%!important;gap:9px!important;margin-top:17px!important}
+#products .product-category-grid .product-actions>*{flex:1 1 0!important;min-width:0!important}
+#products .product-category-grid .detail-btn,
+#products .product-category-grid .source-btn{display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;min-height:42px!important;margin:0!important;padding:9px 11px!important;border-radius:11px!important;font-size:13px!important;line-height:1.2!important}
+
+/* A subtle featured treatment without breaking the grid. */
+#products .product-category-grid .product-catalog-card:first-child{border-color:rgba(185,129,74,.3)!important;box-shadow:0 4px 16px rgba(43,38,32,.05)!important}
+#products .product-category-grid .product-catalog-card:first-child:after{content:'FEATURED'!important;position:absolute!important;right:14px!important;top:14px!important;z-index:5!important;padding:0!important;border-radius:0!important;background:none!important;color:#b9814a!important;font:700 10px/1 'Kanit',sans-serif!important;letter-spacing:1.5px!important}
+
+@media(max-width:1050px){
+ #products .product-category-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #products .product-category-head{align-items:flex-start!important;flex-direction:column!important}
+ #products .product-count{display:none!important}
+}
+@media(max-width:680px){
+ #products .product-category{margin-bottom:58px!important;padding-top:30px!important}
+ #products .product-category-head{display:block!important;margin-bottom:20px!important}
+ #products .product-category-head h3{font-size:26px!important}
+ #products .product-category-head p{font-size:14px!important}
+ #products .product-category-grid{grid-template-columns:1fr!important;gap:18px!important}
+ #products .product-category-grid .product-media,
+ #products .product-category-grid .product-catalog-card:first-child .product-media{height:225px!important;min-height:225px!important;max-height:225px!important}
+ #products .product-category-grid .product-actions{flex-direction:column!important}
+}
+@media(prefers-reduced-motion:reduce){#products .product-category-grid .product-catalog-card,#products .product-category-grid .product-media img{animation:none!important;transition:none!important;transform:none!important}}

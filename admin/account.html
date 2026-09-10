@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>บัญชีผู้ใช้ | IWA RICH YOU D Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body data-page="account">
+<div class="a-shell">
+  <aside class="a-sidebar">
+    <div class="a-sidebar__brand">IWA RICH YOU D<small>ADMIN PANEL</small></div>
+    <a href="dashboard.html" data-nav="dashboard">📊 แดชบอร์ด</a>
+    <a href="products.html" data-nav="products">📦 สินค้า</a>
+    <a href="categories.html" data-nav="categories">🗂️ หมวดหมู่</a>
+    <a href="account.html" data-nav="account">👤 บัญชีผู้ใช้</a>
+    <a href="../" target="_blank">🔗 ดูเว็บไซต์จริง</a>
+    <div class="a-sidebar__spacer"></div>
+    <a class="a-sidebar__logout" data-logout href="#">ออกจากระบบ</a>
+  </aside>
+  <main class="a-main" style="max-width:560px">
+    <div class="a-topbar"><div><h1>บัญชีผู้ใช้</h1><p>เข้าสู่ระบบในชื่อ <b data-admin-username>…</b></p></div></div>
+    <div class="a-card">
+      <h2 style="margin-top:0">เปลี่ยนรหัสผ่าน</h2>
+      <form id="pw-form">
+        <div class="a-form-row"><label for="current">รหัสผ่านปัจจุบัน</label><input type="password" id="current" required></div>
+        <div class="a-form-row"><label for="new1">รหัสผ่านใหม่</label><input type="password" id="new1" required minlength="8"></div>
+        <div class="a-form-row"><label for="new2">ยืนยันรหัสผ่านใหม่</label><input type="password" id="new2" required minlength="8"></div>
+        <p class="hint">รหัสผ่านใหม่ต้องมีอย่างน้อย 8 ตัวอักษร</p>
+        <button type="submit" class="a-btn a-btn-primary">บันทึกรหัสผ่านใหม่</button>
+      </form>
+    </div>
+  </main>
+</div>
+<script src="admin-shared.js"></script>
+<script>
+  document.getElementById('pw-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const n1 = document.getElementById('new1').value;
+    const n2 = document.getElementById('new2').value;
+    if (n1 !== n2) { Admin.toast('รหัสผ่านใหม่ทั้งสองช่องไม่ตรงกัน', 'error'); return; }
+    try {
+      await Admin.api('/change-password', { method: 'POST', body: { currentPassword: document.getElementById('current').value, newPassword: n1 } });
+      Admin.toast('เปลี่ยนรหัสผ่านเรียบร้อย');
+      document.getElementById('pw-form').reset();
+    } catch (err) { Admin.toast(err.message, 'error'); }
+  });
+
+  (async function () {
+    await Admin.guard();
+    Admin.bindLogout();
+    Admin.setActiveNav();
+  })();
+</script>
+</body>
+</html>

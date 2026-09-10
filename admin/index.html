@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เข้าสู่ระบบแอดมิน | IWA RICH YOU D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="a-login-shell">
+  <form class="a-login-card" id="login-form">
+    <h1 class="kanit">เข้าสู่ระบบแอดมิน</h1>
+    <p>IWA RICH YOU D CO.,LTD. — ระบบจัดการสินค้า</p>
+    <div class="a-error-box" id="error-box"></div>
+    <div class="a-form-row">
+      <label for="username">ชื่อผู้ใช้</label>
+      <input type="text" id="username" name="username" autocomplete="username" required>
+    </div>
+    <div class="a-form-row">
+      <label for="password">รหัสผ่าน</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required>
+    </div>
+    <button type="submit" class="a-btn a-btn-primary" id="submit-btn">เข้าสู่ระบบ</button>
+  </form>
+</div>
+<script>
+  const form = document.getElementById('login-form');
+  const errorBox = document.getElementById('error-box');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorBox.classList.remove('show');
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true; btn.textContent = 'กำลังเข้าสู่ระบบ...';
+    try {
+      const res = await fetch('/admin-api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('username').value.trim(),
+          password: document.getElementById('password').value
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'เข้าสู่ระบบไม่สำเร็จ');
+      window.location.href = 'dashboard.html';
+    } catch (err) {
+      errorBox.textContent = err.message;
+      errorBox.classList.add('show');
+      btn.disabled = false; btn.textContent = 'เข้าสู่ระบบ';
+    }
+  });
+
+  // If already logged in, skip straight to dashboard
+  fetch('/admin-api/me').then((r) => r.json()).then((me) => {
+    if (me.loggedIn) window.location.href = 'dashboard.html';
+  }).catch(() => {});
+</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="เลือกดูสินค้าและโซลูชันของ IWA RICH YOU D CO.,LTD. ตามหมวดหมู่">
+  <title>สินค้าและโซลูชัน | IWA RICH YOU D CO.,LTD.</title>
+  <link rel="icon" href="../assets/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Sarabun:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/catalog-pages.css">
+  <script defer src="../assets/js/motion.js"></script>
+</head>
+<body class="catalog-page catalog-directory">
+  <header class="catalog-page__header">
+    <div class="catalog-page__bar">
+      <a class="catalog-page__brand" href="../"><img src="../assets/img/logo.png" alt="IWA RICH YOU D"><span>IWA RICH YOU D CO.,LTD.<small>ICT SOLUTIONS · DIGITAL LEARNING</small></span></a>
+      <a class="catalog-page__back" href="../">← กลับหน้าแรก</a>
+    </div>
+  </header>
+  <main>
+    <section class="catalog-page__hero">
+      <div class="catalog-page__hero-inner">
+        <div class="catalog-page__crumb"><a href="../">หน้าแรก</a><span>/</span><span>สินค้าและโซลูชัน</span></div>
+        <span class="catalog-page__eyebrow">PRODUCT DIRECTORY · 2026</span>
+        <h1>ค้นหาโซลูชัน<br><em>ที่เหมาะกับคุณ</em></h1>
+        <p>เลือกเริ่มต้นจากกลุ่มการเรียนรู้หรือเทคโนโลยีที่ต้องการ แต่ละหมวดมีหน้าเฉพาะสำหรับดูสินค้าและรายละเอียดอย่างเป็นระเบียบ</p>
+        <div class="catalog-directory__hero-meta"><span><b id="meta-cat-count">–</b> หมวดโซลูชัน</span><span><b id="meta-product-count">–</b> สินค้าพร้อมชม</span></div>
+      </div>
+    </section>
+    <section class="catalog-page__content">
+      <div class="catalog-directory__intro">
+        <span>EXPLORE COLLECTIONS</span>
+        <h2 id="cat-heading">เลือกหมวดสินค้า</h2>
+        <p>ทุกหมวดถูกแยกออกเป็นหน้าเฉพาะ เพื่อให้การเพิ่มรายการสินค้าในภายหลังเป็นระเบียบและค้นหาได้ง่าย</p>
+      </div>
+      <div class="catalog-category-grid" id="category-grid">
+        <p style="padding:24px;color:#8f8573">กำลังโหลดหมวดหมู่...</p>
+      </div>
+    </section>
+  </main>
+  <footer class="catalog-page__footer">© 2026 IWA RICH YOU D CO.,LTD. · <a href="../#contact">ติดต่อเรา</a></footer>
+  <script>
+    (function () {
+      function escapeHtml(str) {
+        return String(str || '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      }
+      async function load() {
+        const grid = document.getElementById('category-grid');
+        try {
+          const res = await fetch('/api/categories');
+          const cats = await res.json();
+          document.getElementById('meta-cat-count').textContent = cats.length;
+          document.getElementById('meta-product-count').textContent = cats.reduce((sum, c) => sum + c.product_count, 0);
+          document.getElementById('cat-heading').textContent = `เลือกจาก ${cats.length} หมวดหลัก`;
+          grid.innerHTML = cats.map((c) => `
+            <a class="catalog-category-card" href="${escapeHtml(c.slug)}.html">
+              <span class="catalog-card-photo" aria-hidden="true"></span>
+              <span class="catalog-category-card__label">${escapeHtml(c.eyebrow || '')}</span>
+              <strong>${escapeHtml(c.name)}</strong>
+              <span>${escapeHtml(c.description || '')}</span>
+              <small>มีสินค้า ${c.product_count} รายการ</small>
+            </a>`).join('');
+        } catch (err) {
+          console.error(err);
+          grid.innerHTML = '<p style="padding:24px;color:#8f8573">ไม่สามารถโหลดหมวดหมู่ได้ในขณะนี้</p>';
+        }
+      }
+      load();
+    })();
+  </script>
+</body>
+</html>

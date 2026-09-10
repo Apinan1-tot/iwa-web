@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">เพิ่มสินค้าใหม่ | IWA RICH YOU D Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body data-page="products">
+<div class="a-shell">
+  <aside class="a-sidebar">
+    <div class="a-sidebar__brand">IWA RICH YOU D<small>ADMIN PANEL</small></div>
+    <a href="dashboard.html" data-nav="dashboard">📊 แดชบอร์ด</a>
+    <a href="products.html" data-nav="products">📦 สินค้า</a>
+    <a href="categories.html" data-nav="categories">🗂️ หมวดหมู่</a>
+    <a href="account.html" data-nav="account">👤 บัญชีผู้ใช้</a>
+    <a href="../" target="_blank">🔗 ดูเว็บไซต์จริง</a>
+    <div class="a-sidebar__spacer"></div>
+    <a class="a-sidebar__logout" data-logout href="#">ออกจากระบบ</a>
+  </aside>
+  <main class="a-main">
+    <div class="a-topbar">
+      <div><h1 id="heading">เพิ่มสินค้าใหม่</h1><p>กรอกข้อมูลสินค้า แล้วกดบันทึก — สินค้าจะแสดงบนเว็บไซต์ทันที</p></div>
+      <a class="a-btn a-btn-outline" href="products.html">← กลับรายการสินค้า</a>
+    </div>
+
+    <form id="product-form">
+      <div class="a-card">
+        <h2 style="margin-top:0">รูปภาพหลัก</h2>
+        <div class="a-image-picker">
+          <img id="image-preview" src="" alt="" style="display:none">
+          <input type="file" id="image-file" accept="image/png,image/jpeg,image/webp,image/gif">
+          <p class="hint">แนะนำไฟล์ .png หรือ .jpg พื้นหลังโปร่งใส/สี่เหลี่ยม ขนาดไม่เกิน 8MB (ระบบจะย่อขนาดให้อัตโนมัติ)</p>
+          <input type="hidden" id="image-url" name="image">
+        </div>
+      </div>
+
+      <div class="a-card">
+        <h2 style="margin-top:0">ข้อมูลสินค้า</h2>
+        <div class="a-two-col">
+          <div class="a-form-row">
+            <label for="category_id">หมวดหมู่ *</label>
+            <select id="category_id" required></select>
+          </div>
+          <div class="a-form-row">
+            <label for="name">ชื่อสินค้า *</label>
+            <input type="text" id="name" required placeholder="เช่น Phonics Hero">
+          </div>
+        </div>
+        <div class="a-two-col">
+          <div class="a-form-row">
+            <label for="label">ป้ายกำกับ (label เล็กเหนือชื่อ)</label>
+            <input type="text" id="label" placeholder="เช่น หลักสูตรภาษาอังกฤษสำหรับเด็ก">
+          </div>
+          <div class="a-form-row">
+            <label for="meta_tags">แท็กสั้น (คั่นด้วย , )</label>
+            <input type="text" id="meta_tags" placeholder="เช่น CEFR, Interactive Learning">
+          </div>
+        </div>
+        <div class="a-form-row">
+          <label for="summary">คำอธิบายสั้น (แสดงในการ์ดสินค้า)</label>
+          <textarea id="summary" placeholder="สรุปสั้นๆ 1-2 บรรทัด" style="min-height:60px"></textarea>
+        </div>
+        <div class="a-form-row">
+          <label for="description">รายละเอียดสินค้า (แสดงในหน้ารายละเอียด)</label>
+          <textarea id="description" placeholder="อธิบายรายละเอียดสินค้าแบบเต็ม"></textarea>
+        </div>
+      </div>
+
+      <div class="a-card">
+        <h2 style="margin-top:0">กล่องไฮไลต์ (แสดงในหน้ารายละเอียด)</h2>
+        <div class="a-form-row">
+          <label for="highlight_title">หัวข้อไฮไลต์</label>
+          <input type="text" id="highlight_title" placeholder="เช่น เรียนรู้ผ่านโลกของ Picaro">
+        </div>
+        <div class="a-form-row">
+          <label for="highlight_body">รายละเอียดไฮไลต์</label>
+          <textarea id="highlight_body" style="min-height:60px"></textarea>
+        </div>
+      </div>
+
+      <div class="a-card">
+        <h2 style="margin-top:0">การแสดงผล</h2>
+        <div class="a-two-col">
+          <div class="a-form-row">
+            <label for="sort_order">ลำดับการแสดง (เลขน้อยแสดงก่อน)</label>
+            <input type="number" id="sort_order" value="0">
+          </div>
+          <div class="a-form-row">
+            <label for="is_published">สถานะ</label>
+            <select id="is_published">
+              <option value="1">แสดงผลบนเว็บไซต์</option>
+              <option value="0">ซ่อน (ไม่แสดงบนเว็บไซต์)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="a-actions-row">
+        <button type="submit" class="a-btn a-btn-primary" id="save-btn">💾 บันทึกสินค้า</button>
+        <a class="a-btn a-btn-outline" href="products.html">ยกเลิก</a>
+      </div>
+    </form>
+  </main>
+</div>
+<script src="admin-shared.js"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  const productId = params.get('id');
+  let uploadedFile = null;
+
+  function fillForm(p) {
+    document.getElementById('category_id').value = p.category_id;
+    document.getElementById('name').value = p.name || '';
+    document.getElementById('label').value = p.label || '';
+    document.getElementById('meta_tags').value = p.meta_tags || '';
+    document.getElementById('summary').value = p.summary || '';
+    document.getElementById('description').value = p.description || '';
+    document.getElementById('highlight_title').value = p.highlight_title || '';
+    document.getElementById('highlight_body').value = p.highlight_body || '';
+    document.getElementById('sort_order').value = p.sort_order || 0;
+    document.getElementById('is_published').value = p.is_published ? '1' : '0';
+    document.getElementById('image-url').value = p.image || '';
+    if (p.image) {
+      const img = document.getElementById('image-preview');
+      img.src = p.image; img.style.display = 'block';
+    }
+  }
+
+  document.getElementById('image-file').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    uploadedFile = file;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = document.getElementById('image-preview');
+      img.src = ev.target.result; img.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  document.getElementById('product-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('save-btn');
+    btn.disabled = true; btn.textContent = 'กำลังบันทึก...';
+    try {
+      let imageUrl = document.getElementById('image-url').value;
+      if (uploadedFile) {
+        const fd = new FormData();
+        fd.append('image', uploadedFile);
+        const uploadRes = await Admin.api('/upload', { method: 'POST', body: fd });
+        imageUrl = uploadRes.url;
+      }
+      const payload = {
+        category_id: Number(document.getElementById('category_id').value),
+        name: document.getElementById('name').value.trim(),
+        label: document.getElementById('label').value.trim(),
+        meta_tags: document.getElementById('meta_tags').value.trim(),
+        summary: document.getElementById('summary').value.trim(),
+        description: document.getElementById('description').value.trim(),
+        highlight_title: document.getElementById('highlight_title').value.trim(),
+        highlight_body: document.getElementById('highlight_body').value.trim(),
+        sort_order: Number(document.getElementById('sort_order').value) || 0,
+        is_published: document.getElementById('is_published').value === '1',
+        image: imageUrl
+      };
+      if (!payload.name) throw new Error('กรุณากรอกชื่อสินค้า');
+      if (!payload.category_id) throw new Error('กรุณาเลือกหมวดหมู่');
+
+      if (productId) {
+        await Admin.api(`/products/${productId}`, { method: 'PUT', body: payload });
+        Admin.toast('บันทึกการแก้ไขเรียบร้อย');
+      } else {
+        await Admin.api('/products', { method: 'POST', body: payload });
+        Admin.toast('เพิ่มสินค้าใหม่เรียบร้อย');
+      }
+      setTimeout(() => { window.location.href = 'products.html'; }, 500);
+    } catch (err) {
+      Admin.toast(err.message, 'error');
+      btn.disabled = false; btn.textContent = '💾 บันทึกสินค้า';
+    }
+  });
+
+  (async function () {
+    await Admin.guard();
+    Admin.bindLogout();
+    Admin.setActiveNav();
+    try {
+      const categories = await Admin.api('/categories');
+      const sel = document.getElementById('category_id');
+      sel.innerHTML = categories.map((c) => `<option value="${c.id}">${Admin.escapeHtml(c.name)}</option>`).join('');
+
+      if (productId) {
+        document.getElementById('page-title').textContent = 'แก้ไขสินค้า | IWA RICH YOU D Admin';
+        document.getElementById('heading').textContent = 'แก้ไขสินค้า';
+        const product = await Admin.api(`/products/${productId}`);
+        fillForm(product);
+      }
+    } catch (err) {
+      Admin.toast(err.message, 'error');
+    }
+  })();
+</script>
+</body>
+</html>

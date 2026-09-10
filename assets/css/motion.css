@@ -1,0 +1,86 @@
+/* ============================================================
+   IWA RICH YOU D — Motion System
+   Scroll reveal, hover effects, transitions
+   ============================================================ */
+
+/* Scroll Reveal */
+.iwa-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .5s var(--ease-out), transform .5s var(--ease-out);
+  transition-delay: var(--iwa-delay, 0ms);
+}
+.iwa-reveal.iwa-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Card hover */
+.product-catalog-card,
+.svc-card,
+.info-card {
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.product-catalog-card:hover,
+.svc-card:hover,
+.info-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Section divider */
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(900px, 74%);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(185,129,74,.22), transparent);
+}
+
+/* Section heading underline */
+.section-head h2 {
+  position: relative;
+  display: inline-block;
+}
+.section-head h2::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -13px;
+  width: 48px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #b9814a, #d6a876);
+  transform: translateX(-50%);
+}
+
+/* Button hover enhancements */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary {
+  transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
+}
+.btn-primary:hover {
+  box-shadow: var(--shadow-sm);
+}
+.btn-outline:hover,
+.btn-ghost:hover {
+}
+
+footer::before { content: none; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .iwa-reveal,
+  .product-catalog-card,
+  .svc-card,
+  .info-card {
+    animation: none !important;
+    transition: none !important;
+  }
+  .iwa-reveal { opacity: 1; transform: none; filter: none; }
+}

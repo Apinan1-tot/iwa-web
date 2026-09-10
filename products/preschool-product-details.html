@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>รายละเอียดผลิตภัณฑ์ปฐมวัย | IWA RICH YOU D</title>
+  <link rel="icon" href="../assets/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Sarabun:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/catalog-pages.css">
+  <script defer src="../assets/js/motion.js"></script>
+</head>
+<body class="catalog-page product-long-page preschool-detail-page">
+  <header class="catalog-page__header"><div class="catalog-page__bar"><a class="catalog-page__brand" href="../"><img src="../assets/img/logo.png" alt="IWA RICH YOU D"><span>IWA RICH YOU D CO.,LTD.<small>ICT SOLUTIONS · DIGITAL LEARNING</small></span></a><a class="catalog-page__back" id="back-to-product" href="preschool-multimedia.html">← กลับหน้าสินค้า</a></div></header>
+  <main>
+    <section class="product-long-hero preschool-detail-hero">
+      <div><span id="product-label">PRESCHOOL MULTIMEDIA</span><h1 id="product-title">รายละเอียดผลิตภัณฑ์</h1><p id="product-summary"></p><a href="preschool-multimedia.html"><b>←</b> กลับไปรายการสินค้า</a></div>
+      <img id="product-image" src="../assets/img/products/preschool/click2plearn.png" alt="">
+    </section>
+    <section class="product-long-content">
+      <div class="product-long-title"><span>PRODUCT OVERVIEW</span><h2 id="overview-title">ภาพรวมของผลิตภัณฑ์</h2><p id="overview-copy"></p></div>
+      <div class="skill-list" id="skill-list"></div>
+      <section class="product-long-data"><div><span>USE IN CLASS</span><h2>ใช้งานเป็นส่วนหนึ่งของการเรียนรู้ระดับปฐมวัย</h2><p id="class-copy"></p></div><div class="product-long-data__numbers"><p><b id="focus-one">01</b><span id="focus-one-copy"></span></p><p><b id="focus-two">02</b><span id="focus-two-copy"></span></p><p><b id="focus-three">03</b><span id="focus-three-copy"></span></p></div></section>
+      <section class="preschool-system-requirements" id="system-requirements" hidden><div class="product-long-title"><span>SYSTEM REQUIREMENTS</span><h2>ความต้องการของระบบ</h2><p id="system-requirements-copy"></p></div><div class="preschool-system-requirements__content"><img id="system-requirements-image" src="" alt=""><ul id="system-requirements-list"></ul></div></section>
+      <section class="preschool-detail-explainer"><div class="product-long-title"><span>MORE ABOUT THIS PRODUCT</span><h2 id="explain-title">รายละเอียดเพิ่มเติม</h2><p id="explain-intro"></p></div><div class="preschool-detail-steps" id="detail-steps"></div><div class="preschool-detail-note"><span>TEACHING NOTE</span><h3>วางการใช้ให้เหมาะกับชั้นเรียน</h3><p id="teaching-note"></p></div></section>
+      <section class="preschool-lesson-gallery" id="lesson-gallery" hidden><div class="product-long-title"><span>LESSON EXAMPLES</span><h2>ตัวอย่างสื่อและบทเรียน</h2><p id="lesson-gallery-intro"></p><small class="preschool-lesson-gallery__hint">คลิกภาพเพื่อดูขนาดใหญ่</small></div><div class="preschool-lesson-gallery__grid" id="lesson-gallery-grid"></div></section>
+      <section class="product-long-contact"><div><span>CONTACT US</span><h2>ต้องการข้อมูลการใช้งานเพิ่มเติม?</h2><p>ติดต่อทีมงานเพื่อขอคำแนะนำให้เหมาะกับชั้นเรียนของคุณ</p></div><a href="../#contact">ติดต่อเรา <b>→</b></a></section>
+    </section>
+  </main>
+  <dialog class="lesson-preview-dialog" id="lesson-preview-dialog"><button class="lesson-preview-dialog__close" id="lesson-preview-close" type="button" aria-label="ปิดภาพตัวอย่าง">×</button><figure><img id="lesson-preview-image" src="" alt=""><figcaption id="lesson-preview-caption"></figcaption></figure></dialog>
+  <footer class="catalog-page__footer">© 2026 IWA RICH YOU D CO.,LTD.</footer>
+  <script>
+    const productData = {
+      'click2plearn': { label: 'EARLY LEARNING', title: 'Click2Plearn', image: 'click2plearn.png', summary: 'สื่อมัลติมีเดียสำหรับกิจกรรมการเรียนรู้ของเด็กปฐมวัย', overview: 'ออกแบบเป็นพื้นที่เรียนรู้ที่เด็กเข้าถึงได้ง่าย ผ่านเนื้อหาและกิจกรรมที่เหมาะกับวัยเริ่มต้น', classCopy: 'ใช้เป็นสื่อประกอบกิจกรรมในชั้นเรียน เพื่อชวนเด็กสำรวจ เรียนรู้ และลงมือทำตามจังหวะของผู้สอน', skills: [['01','เรียนรู้ผ่านกิจกรรม','จัดวางเนื้อหาในรูปแบบที่เป็นมิตรกับเด็ก'],['02','สนับสนุนพื้นฐาน','เหมาะสำหรับต่อยอดกิจกรรมการเรียนรู้ช่วงปฐมวัย'],['03','ใช้ในชั้นเรียน','ผู้สอนเลือกนำไปใช้ประกอบบทเรียนได้'],['04','สื่อท้องถิ่น','นำไปปรับใช้กับบริบทของห้องเรียนได้']], focus: ['เรียนรู้','กิจกรรม','ปฐมวัย'] },
+      'thai': { label: 'ACTIV@TEACH · LANGUAGE', title: 'พัฒนาทักษะการใช้ภาษา', image: 'activateach-thai.png', summary: 'โปรแกรมสื่อมัลติมีเดียเพื่อพัฒนาทักษะการใช้ภาษาสำหรับเด็กปฐมวัย', overview: 'เนื้อหามุ่งเน้นการเรียนรู้ด้านภาษาในระดับปฐมวัย โดยจัดเป็นสื่อสำหรับนำไปประกอบกิจกรรมของครูผู้สอน', classCopy: 'เหมาะสำหรับใช้ประกอบช่วงกิจกรรมภาษา โดยครูสามารถเลือกหัวข้อให้สอดคล้องกับแผนการสอนและวัยของผู้เรียน', skills: [['01','ทักษะภาษา','ใช้เป็นสื่อประกอบการเรียนรู้ด้านภาษา'],['02','รูปแบบเข้าใจง่าย','นำเสนอเนื้อหาให้เหมาะกับเด็กปฐมวัย'],['03','ประกอบกิจกรรม','ใช้ร่วมกับการสื่อสารและการทำกิจกรรมในห้องเรียน'],['04','ครูเป็นผู้นำการเรียนรู้','ปรับจังหวะการใช้สื่อให้เหมาะกับผู้เรียนได้']], focus: ['ภาษา','กิจกรรม','ปฐมวัย'] },
+      'math': { label: 'ACTIV@TEACH · MATH', title: 'พัฒนาทักษะทางคณิตศาสตร์', image: 'activateach-math.png', summary: 'โปรแกรมสื่อมัลติมีเดียสำหรับกิจกรรมการเรียนรู้ด้านคณิตศาสตร์ระดับปฐมวัย', overview: 'สื่อสำหรับใช้ประกอบการเรียนรู้ด้านคณิตศาสตร์ในช่วงปฐมวัย ช่วยให้ครูมีสื่อประกอบบทเรียนที่หยิบใช้ได้เป็นระบบ', classCopy: 'นำไปใช้ร่วมกับกิจกรรมฝึกคิดและการสังเกตในชั้นเรียน โดยเลือกเนื้อหาให้เหมาะกับแผนและระดับของผู้เรียน', skills: [['01','ทักษะคณิตศาสตร์','สื่อประกอบกิจกรรมด้านคณิตศาสตร์'],['02','เรียนรู้เป็นขั้นตอน','ใช้รองรับการจัดกิจกรรมตามแผนของครู'],['03','เชื่อมโยงการลงมือทำ','ใช้ร่วมกับสื่อและอุปกรณ์ในชั้นเรียนได้'],['04','เหมาะกับปฐมวัย','เลือกใช้ในจังหวะการเรียนรู้ของเด็ก']], focus: ['คณิตศาสตร์','คิดเป็นขั้น','ปฐมวัย'] },
+      'science': { label: 'ACTIV@TEACH · SCIENCE', title: 'พัฒนาทักษะทางวิทยาศาสตร์', image: 'activateach-science.png', summary: 'โปรแกรมสื่อมัลติมีเดียสำหรับกิจกรรมการเรียนรู้ด้านวิทยาศาสตร์ระดับปฐมวัย', overview: 'ช่วยเสริมคลังสื่อสำหรับกิจกรรมวิทยาศาสตร์ในระดับปฐมวัย เพื่อให้ครูเลือกใช้ประกอบการสังเกตและการค้นพบของเด็ก', classCopy: 'ใช้เป็นจุดเริ่มต้นของการสนทนา การสังเกต หรือกิจกรรมทดลองง่าย ๆ โดยครูวางลำดับการเรียนรู้ตามหน่วยที่สอน', skills: [['01','ทักษะวิทยาศาสตร์','ใช้ประกอบบทเรียนด้านวิทยาศาสตร์'],['02','ชวนสังเกต','ต่อยอดการตั้งคำถามในชั้นเรียน'],['03','กิจกรรมแบบลงมือทำ','ใช้ร่วมกับการสำรวจและทดลองตามวัย'],['04','ยืดหยุ่นกับแผนสอน','นำไปจัดกิจกรรมให้เข้ากับหัวข้อได้']], focus: ['วิทยาศาสตร์','สังเกต','ปฐมวัย'] },
+      'thinking': { label: 'ACTIV@TEACH · THINKING', title: 'พัฒนาทักษะกระบวนการคิด', image: 'activateach-thinking.png', summary: 'โปรแกรมสื่อมัลติมีเดียเพื่อเสริมกระบวนการคิดและเชาวน์ปัญญาสำหรับเด็กปฐมวัย', overview: 'เป็นสื่อประกอบกิจกรรมที่มุ่งให้เด็กได้ฝึกคิดและแก้โจทย์ตามระดับความพร้อม โดยครูเป็นผู้ออกแบบประสบการณ์การเรียนรู้', classCopy: 'เลือกใช้ร่วมกับเกมการเรียนรู้หรือคำถามปลายเปิด เพื่อให้เด็กได้คิด ตอบ และอธิบายแนวทางของตนเองในชั้นเรียน', skills: [['01','กระบวนการคิด','ใช้ประกอบกิจกรรมฝึกคิดตามวัย'],['02','โจทย์และกิจกรรม','ครูเลือกนำไปต่อยอดในชั้นเรียนได้'],['03','ส่งเสริมเชาวน์ปัญญา','เน้นประสบการณ์เรียนรู้ที่เหมาะกับเด็ก'],['04','ปรับตามความพร้อม','ใช้ควบคู่กับการสังเกตผู้เรียนได้']], focus: ['กระบวนการคิด','กิจกรรม','ปฐมวัย'] },
+      'asean': { label: 'EARLY LEARNING', title: 'ชุดอาเซียนน่ารู้', image: 'asean.png', summary: 'สื่อมัลติมีเดียประกอบการเรียนรู้เรื่องอาเซียนสำหรับเด็กปฐมวัย', overview: 'สื่อภาพสำหรับพาเด็กเริ่มต้นรู้จักเรื่องราวใกล้ตัวของประเทศในภูมิภาคอาเซียน ผ่านการจัดกิจกรรมโดยครูผู้สอน', classCopy: 'ใช้เป็นสื่อเกริ่นนำหรือประกอบกิจกรรมตามหน่วยการเรียนรู้ แล้วต่อยอดด้วยการพูดคุย ภาพประกอบ และผลงานสร้างสรรค์ของเด็ก', skills: [['01','รู้จักอาเซียน','ใช้เป็นสื่อเริ่มต้นการเรียนรู้เรื่องภูมิภาค'],['02','เรียนรู้ผ่านภาพ','เนื้อหานำเสนอในรูปแบบที่เด็กเข้าถึงได้'],['03','ต่อยอดกิจกรรม','ใช้คู่กับงานศิลปะ การเล่าเรื่อง หรือการสนทนา'],['04','เหมาะกับปฐมวัย','ครูปรับความลึกของกิจกรรมได้']], focus: ['อาเซียน','เรียนรู้ผ่านภาพ','ปฐมวัย'] },
+      'smart-quiz': { label: 'ASSESSMENT', title: 'Smart Quiz v1.0', image: 'smart-quiz.png', summary: 'คลังข้อสอบและระบบวัดผลสำหรับเด็กปฐมวัย', overview: 'เครื่องมือสำหรับจัดการแบบทดสอบและติดตามผลการเรียนรู้ของเด็กปฐมวัย ให้ครูเตรียมและใช้งานสื่อประเมินผลได้สะดวกขึ้น', classCopy: 'ใช้ประกอบการประเมินตามกิจกรรมในชั้นเรียน โดยเลือกหัวข้อและรูปแบบแบบทดสอบให้สอดคล้องกับเป้าหมายการเรียนรู้', skills: [['01','คลังข้อสอบ','รวบรวมแบบทดสอบสำหรับการใช้งานของครู'],['02','จัดหมวดหมู่','ช่วยให้เลือกหัวข้อประเมินได้เป็นระเบียบ'],['03','ติดตามผล','ใช้ประกอบการดูพัฒนาการตามกิจกรรม'],['04','รองรับการใช้งาน','ออกแบบเพื่อใช้เป็นเครื่องมือในชั้นเรียน']], focus: ['ประเมินผล','คลังข้อสอบ','ปฐมวัย'] },
+      'elearning-teacher': { label: 'E-LEARNING · TEACHER', title: 'E-Learning สำหรับครูปฐมวัย', image: 'elearning-teacher.png', summary: 'บทเรียนอิเล็กทรอนิกส์รูปแบบมัลติมีเดียและเครื่องมือจัดการการเรียนรู้สำหรับครูปฐมวัย', overview: 'ระบบสำหรับสนับสนุนการจัดการบทเรียน รายวิชา ผู้สอน และผู้เรียน พร้อมพื้นที่ติดตามผลการเรียนรู้ในรูปแบบออนไลน์', classCopy: 'เหมาะสำหรับครูหรือผู้ดูแลระบบที่ต้องการรวบรวมบทเรียน แบบทดสอบ และข้อมูลการเรียนรู้ไว้เป็นระเบียบในจุดเดียว', skills: [['01','บทเรียนมัลติมีเดีย','ใช้จัดและนำเสนอบทเรียนในรูปแบบออนไลน์'],['02','จัดการรายวิชา','ช่วยเตรียมข้อมูลรายวิชาและเนื้อหาที่เปิดสอน'],['03','ดูแลผู้ใช้งาน','รองรับการจัดการอาจารย์ผู้สอนและนักเรียน'],['04','ติดตามผลการเรียน','ใช้ประกอบการดูคะแนนและผลการเรียนรู้']], focus: ['จัดการบทเรียน','ติดตามผล','ครูปฐมวัย'] }
+    };
+    const extendedContent = {
+      'click2plearn': { title: 'สื่อที่ใช้เริ่มกิจกรรมได้ง่าย', intro: 'Click2Plearn เหมาะกับการใช้เป็นสื่อเปิดบทเรียนหรือประกอบฐานกิจกรรม โดยครูเลือกหัวข้อให้สัมพันธ์กับหน่วยการเรียนรู้และชวนเด็กตอบโต้จากสิ่งที่เห็นในสื่อได้ทันที', note: 'เริ่มด้วยคำถามสั้น ๆ จากภาพหรือกิจกรรมในสื่อ ให้เด็กสังเกตและเล่าในแบบของตนเอง จากนั้นจึงต่อยอดด้วยงานกลุ่มหรือกิจกรรมลงมือทำ', steps: [['เริ่มจากความสนใจของเด็ก','เลือกหัวข้อหรือภาพที่เด็กคุ้นเคย เพื่อสร้างบรรยากาศการเรียนรู้ที่เป็นมิตร'],['ชวนคิดและพูดคุย','ใช้คำถามปลายเปิด ให้เด็กบอกสิ่งที่เห็นและเชื่อมโยงกับประสบการณ์ของตน'],['ต่อยอดด้วยกิจกรรม','เปลี่ยนจากหน้าจอเป็นเกม งานศิลปะ หรือกิจกรรมเคลื่อนไหวตามแผนของครู']] },
+      'thai': { title: 'การเรียนรู้ภาษาในช่วงปฐมวัย', intro: 'โปรแกรมพัฒนาทักษะการใช้ภาษาถูกวางให้ครูนำไปประกอบกิจกรรมภาษาได้อย่างยืดหยุ่น ทั้งช่วงนำเข้าสู่บทเรียน ช่วงฝึกทำกิจกรรม และช่วงทบทวนร่วมกัน', note: 'ให้ครูเลือกกิจกรรมที่เหมาะกับวัยและจำนวนผู้เรียน แล้วใช้การฟัง พูด เล่าเรื่อง หรือทำงานร่วมกัน เพื่อให้เด็กได้ใช้ภาษาอย่างเป็นธรรมชาติ', steps: [['เริ่มจากคำและภาพ','ใช้ภาพหรือสถานการณ์ใกล้ตัวเพื่อให้เด็กเข้าใจความหมายก่อน'],['ฝึกสื่อสารร่วมกัน','ชวนเด็กฟัง พูด และแลกเปลี่ยนคำตอบในจังหวะที่ไม่เร่งรีบ'],['ทบทวนจากผลงาน','ใช้ผลงานหรือคำตอบของเด็กเป็นจุดทบทวนท้ายกิจกรรม']] },
+      'math': { title: 'เปลี่ยนแนวคิดคณิตศาสตร์ให้เป็นกิจกรรม', intro: 'โปรแกรมพัฒนาทักษะทางคณิตศาสตร์ช่วยให้ครูมีสื่อประกอบการจัดกิจกรรมที่เน้นการสังเกต การเปรียบเทียบ และการคิดอย่างเป็นลำดับ เหมาะกับการเรียนรู้ผ่านการลงมือทำของเด็กปฐมวัย', note: 'ใช้สื่อเป็นจุดตั้งต้น แล้วให้เด็กหยิบจับ จัดกลุ่ม หรืออธิบายเหตุผลจากวัสดุจริงในห้องเรียน จะช่วยเชื่อมสิ่งที่เห็นบนหน้าจอกับประสบการณ์จริงได้ดีขึ้น', steps: [['ชวนสังเกต','เริ่มจากการมองหาความเหมือน ความต่าง หรือความสัมพันธ์ของสิ่งรอบตัว'],['ลงมือจัดและเปรียบเทียบ','ต่อยอดด้วยการจัดกลุ่ม เรียงลำดับ หรือเปรียบเทียบจากอุปกรณ์จริง'],['เล่าเหตุผลของตน','ให้เด็กบอกวิธีคิดสั้น ๆ เพื่อให้ครูเห็นความเข้าใจของผู้เรียน']] },
+      'science': { title: 'สร้างบทเรียนวิทยาศาสตร์จากการค้นพบ', intro: 'โปรแกรมพัฒนาทักษะทางวิทยาศาสตร์ใช้เป็นสื่อประกอบการชวนเด็กสังเกต ตั้งคำถาม และเล่าผลที่พบ ครูสามารถเลือกใช้ก่อนหรือระหว่างกิจกรรมสำรวจตามหน่วยการเรียนรู้', note: 'ใช้เนื้อหาในโปรแกรมเป็นจุดเริ่มต้น แล้วเปิดโอกาสให้เด็กทดลอง สังเกต หรือเปรียบเทียบสิ่งของจริงภายใต้การดูแลที่เหมาะสม', steps: [['ตั้งคำถามจากสิ่งใกล้ตัว','ชวนเด็กคาดเดาหรือบอกสิ่งที่สังเกตจากภาพและสถานการณ์'],['สำรวจอย่างปลอดภัย','จัดกิจกรรมทดลองหรือสังเกตง่าย ๆ ให้เหมาะกับวัยและสภาพแวดล้อม'],['แลกเปลี่ยนสิ่งที่พบ','ให้เด็กเล่าผลของตน แล้วครูช่วยสรุปคำสำคัญร่วมกัน']] },
+      'thinking': { title: 'พัฒนากระบวนการคิดผ่านโจทย์และเกม', intro: 'โปรแกรมเสริมกระบวนการคิดเหมาะกับการจัดกิจกรรมที่ให้เด็กได้เลือก ตัดสินใจ สังเกตความสัมพันธ์ และอธิบายแนวคิดของตนเองในบรรยากาศที่สนุกและไม่กดดัน', note: 'ครูอาจเริ่มด้วยโจทย์ทีละข้อ ให้เวลาเด็กคิดและตอบ แล้วชวนเพื่อนฟังวิธีคิดที่หลากหลาย แทนการเน้นคำตอบที่ถูกเพียงอย่างเดียว', steps: [['ตั้งโจทย์ที่ชัดเจน','เลือกกิจกรรมสั้น ๆ ที่เด็กเข้าใจเป้าหมายได้ด้วยตนเอง'],['ให้เวลาคิดและลอง','เปิดโอกาสให้เด็กทดลองเลือกคำตอบหรือวิธีแก้ปัญหา'],['ชวนอธิบายวิธีคิด','ใช้คำถามว่า “ทำไมถึงเลือกแบบนี้” เพื่อให้เด็กฝึกสื่อสารความคิด']] },
+      'asean': { title: 'รู้จักอาเซียนอย่างใกล้ตัว', intro: 'ชุดอาเซียนน่ารู้เป็นสื่อประกอบการเริ่มต้นเรียนรู้เรื่องประเทศ ผู้คน และวัฒนธรรมในภูมิภาคอาเซียน โดยครูปรับระดับเนื้อหาและกิจกรรมให้เหมาะกับเด็กปฐมวัยได้', note: 'เลือกหนึ่งหัวข้อในแต่ละครั้ง เช่น ธง อาหาร การแต่งกาย หรือสถานที่ แล้วเชื่อมต่อกับกิจกรรมวาดภาพ เล่าเรื่อง หรือมุมบทบาทสมมติ', steps: [['เลือกเรื่องที่เด็กเข้าถึงได้','เริ่มจากภาพ สี สัญลักษณ์ หรือเรื่องราวที่เข้าใจง่าย'],['เชื่อมกับกิจกรรมสร้างสรรค์','ให้เด็กวาด ระบายสี เล่าเรื่อง หรือเล่นบทบาทสมมติ'],['แลกเปลี่ยนอย่างเคารพ','ชวนให้เด็กเห็นความหลากหลายผ่านการพูดคุยในเชิงบวก']] },
+      'smart-quiz': { title: 'คลังข้อสอบและการติดตามผลสำหรับปฐมวัย', intro: 'Smart Quiz v1.0 คือโปรแกรมคลังข้อสอบมัลติมีเดียระดับปฐมวัย สำหรับเตรียมความพร้อมก่อนเรียนประถมศึกษา โดยมีแบบทดสอบครอบคลุมคณิตศาสตร์ วิทยาศาสตร์ ภาษาไทย ภาษาอังกฤษ และเชาวน์ปัญญา', note: 'ผู้สอนควรเลือกแบบทดสอบให้สัมพันธ์กับกิจกรรมที่เด็กได้เรียนรู้แล้ว และใช้ผลลัพธ์เป็นข้อมูลประกอบการสังเกต ไม่ใช่เพื่อเร่งหรือเปรียบเทียบเด็ก', steps: [['เลือกแบบทดสอบให้ตรงจุดประสงค์','มีรูปแบบข้อสอบหลากหลาย เช่น จับคู่ เลือกตอบ เติมคำ และถูก/ผิด'],['บันทึกและดูผลอย่างเป็นระบบ','ระบบรองรับการจัดเก็บคะแนนและรายงานผลของผู้ทดสอบ'],['ต่อยอดในระบบเครือข่าย','รองรับการทำงานผ่านเว็บเบราว์เซอร์บนระบบเครือข่าย และการนำเข้าแบบทดสอบมาตรฐาน SCORM']] },
+      'elearning-teacher': { title: 'ระบบ e-Learning สำหรับการพัฒนาครูปฐมวัย', intro: 'E-Learning สำหรับครูปฐมวัยเป็นบทเรียนคอมพิวเตอร์ช่วยสอนรูปแบบมัลติมีเดีย ทำงานผ่านเว็บเบราว์เซอร์บนระบบเครือข่ายอินทราเน็ต เพื่อเป็นแหล่งเรียนรู้ด้านเทคโนโลยีสารสนเทศและคอมพิวเตอร์สำหรับครูปฐมวัย', note: 'ระบบแบ่งการจัดการเป็น 3 ส่วน ได้แก่ ครูผู้สอน นักเรียน และผู้ดูแลระบบ จึงควรกำหนดบทบาทและเนื้อหาที่แต่ละกลุ่มใช้งานให้ชัดเจนก่อนเริ่มใช้จริง', steps: [['เรียนรู้เทคโนโลยีที่เกี่ยวข้อง','มีเนื้อหาด้านเทคโนโลยีสารสนเทศและคอมพิวเตอร์สำหรับครูปฐมวัย'],['ทำความเข้าใจห้องเรียนอัจฉริยะ','มีสื่อแนะนำคุณสมบัติและการใช้งานอุปกรณ์ภายในห้องเรียนอัจฉริยะ'],['ดูแลและบริหารระบบ','มีเนื้อหาแนะนำการบำรุงรักษาอุปกรณ์ พร้อมโครงสร้างการจัดการสำหรับ 3 บทบาทผู้ใช้']] }
+    };
+    const lessonMedia = {
+      'click2plearn': { intro: 'ตัวอย่างหน้าจอและสื่อประกอบบทเรียนจากโปรแกรม Click2Plearn', items: [['click2plearn-lesson-1.png','ตัวอย่างหน้าจอเปิดบทเรียน Click2Plearn'],['click2plearn-lesson-2.png','ตัวอย่างกิจกรรมในโปรแกรม Click2Plearn']] },
+      'thai': { intro: 'ตัวอย่างหน้าจอของสื่อพัฒนาทักษะการใช้ภาษา สำหรับนำไปใช้ประกอบกิจกรรมภาษา', items: [['thai-lesson-1.png','ตัวอย่างสื่อพัฒนาทักษะการใช้ภาษา'],['thai-lesson-2.png','ตัวอย่างบทเรียนภาษาไทยและกิจกรรมในโปรแกรม']] },
+      'math': { intro: 'ตัวอย่างบทเรียนคณิตศาสตร์ที่ช่วยให้ครูเห็นภาพทั้งการจัดหน่วยการเรียนรู้ การเปรียบเทียบ และการทำความเข้าใจจำนวน', items: [['math-lesson-1.png','ตัวอย่างสื่อพัฒนาทักษะทางคณิตศาสตร์'],['math-lesson-2.png','ตัวอย่างบทเรียนคณิตศาสตร์และกิจกรรมเปรียบเทียบ'],['math-lesson-3.png','ตัวอย่างบทเรียนมาตรฐานที่ 1: ความสัมพันธ์เชิงคณิตศาสตร์'],['math-lesson-4.png','ตัวอย่างบทเรียนมาตรฐานที่ 2: จำนวนนับและการคำนวณ']] },
+      'science': { intro: 'ตัวอย่างบทเรียนวิทยาศาสตร์ที่ชวนเด็กสังเกต จำแนก และจัดกลุ่มสิ่งต่าง ๆ ผ่านภาพและกิจกรรมที่เหมาะกับวัย', items: [['science-lesson-1.png','ตัวอย่างสื่อพัฒนาทักษะทางวิทยาศาสตร์'],['science-lesson-2.png','ตัวอย่างบทเรียนวิทยาศาสตร์: ทักษะการสังเกต'],['science-lesson-3.png','ตัวอย่างบทเรียนวิทยาศาสตร์: ทักษะการจำแนกและจัดกลุ่ม']] },
+      'thinking': { intro: 'ตัวอย่างบทเรียนเสริมเชาวน์ปัญญาที่ฝึกให้เด็กสังเกตความสัมพันธ์ จัดกลุ่มสิ่งของ และอธิบายวิธีคิดของตนเอง', items: [['thinking-lesson-1.png','ตัวอย่างสื่อฝึกกระบวนการคิด'],['thinking-lesson-2.png','ตัวอย่างบทเรียนเสริมเชาวน์ปัญญา: ทักษะทางมิติสัมพันธ์'],['thinking-lesson-3.png','ตัวอย่างบทเรียนเสริมเชาวน์ปัญญา: ทักษะการจัดกลุ่ม']] },
+      'asean': { intro: 'ตัวอย่างบทเรียนอาเซียนน่ารู้ที่เชื่อมความรู้เรื่องประเทศ วัฒนธรรม อาหาร และกิจกรรมฝึกทบทวนให้เหมาะกับเด็กปฐมวัย', items: [['asean-lesson-1.png','ตัวอย่างบทเรียนชุดอาเซียนน่ารู้']] },
+      'smart-quiz': { intro: 'ตัวอย่างหน้าจอคลังข้อสอบและรายงานผล สำหรับจัดการการประเมินระดับปฐมวัย', items: [['smart-quiz-lesson-1.png','ตัวอย่างหน้าจอ Smart Quiz v1.0']] },
+      'elearning-teacher': { intro: 'ตัวอย่างหน้าจอส่วนการจัดการบทเรียนและข้อมูลรายวิชาในระบบ e-Learning', items: [['elearning-lesson-1.png','ตัวอย่างหน้าจอระบบ e-Learning'],['elearning-lesson-2.png','ตัวอย่างรายงานผลในระบบ e-Learning']] }
+    };
+    const systemRequirements = {
+      'asean': { copy: 'ข้อมูลด้านล่างเป็นสเปกขั้นต่ำสำหรับเตรียมเครื่องคอมพิวเตอร์ให้พร้อมใช้งานบทเรียนชุดอาเซียนน่ารู้', image: 'asean-system-requirements.png', items: ['ระบบปฏิบัติการ Windows 7 หรือสูงกว่า','หน่วยประมวลผลกลาง (CPU) ความเร็วอย่างน้อย 1 GHz','หน่วยความจำ (RAM) อย่างน้อย 2 GB','พื้นที่ว่างบนฮาร์ดดิสก์อย่างน้อย 1 GB','ระบบมัลติมีเดีย เช่น หูฟังหรือลำโพง'] }
+    };
+    const key = new URLSearchParams(location.search).get('product');
+    const selected = Object.prototype.hasOwnProperty.call(productData, key) ? key : 'click2plearn';
+    const product = productData[selected];
+    document.title = product.title + ' | IWA RICH YOU D';
+    document.getElementById('product-label').textContent = product.label;
+    document.getElementById('product-title').textContent = product.title;
+    document.getElementById('product-summary').textContent = product.summary;
+    document.getElementById('product-image').src = '../assets/img/products/preschool/' + product.image;
+    document.getElementById('product-image').alt = product.title;
+    document.getElementById('overview-title').textContent = 'ภาพรวม ' + product.title;
+    document.getElementById('overview-copy').textContent = product.overview;
+    document.getElementById('class-copy').textContent = product.classCopy;
+    document.getElementById('back-to-product').href = 'preschool-product.html?product=' + encodeURIComponent(selected);
+    const extended = extendedContent[selected];
+    document.getElementById('explain-title').textContent = extended.title;
+    document.getElementById('explain-intro').textContent = extended.intro;
+    document.getElementById('teaching-note').textContent = extended.note;
+    document.getElementById('detail-steps').innerHTML = extended.steps.map(([h, p], index) => '<article><b>0' + (index + 1) + '</b><h3>' + h + '</h3><p>' + p + '</p></article>').join('');
+    const lesson = lessonMedia[selected];
+    if (lesson) {
+      document.getElementById('lesson-gallery').hidden = false;
+      document.getElementById('lesson-gallery-intro').textContent = lesson.intro;
+      document.getElementById('lesson-gallery-grid').innerHTML = lesson.items.map(([image, caption], index) => '<figure><button type="button" class="lesson-preview" data-image="' + image + '" data-caption="' + caption + '" aria-label="ดูภาพขนาดใหญ่: ' + caption + '"><img src="../assets/img/products/preschool/' + image + '" alt="' + caption + '" loading="lazy"></button><figcaption><b>' + String(index + 1).padStart(2, '0') + '</b><span>' + caption + '</span></figcaption></figure>').join('');
+    }
+    const requirements = systemRequirements[selected];
+    if (requirements) {
+      document.getElementById('system-requirements').hidden = false;
+      document.getElementById('system-requirements-copy').textContent = requirements.copy;
+      document.getElementById('system-requirements-image').src = '../assets/img/products/preschool/' + requirements.image;
+      document.getElementById('system-requirements-image').alt = 'ความต้องการระบบ ' + product.title;
+      document.getElementById('system-requirements-list').innerHTML = requirements.items.map((item) => '<li>' + item + '</li>').join('');
+    }
+    const lessonPreviewDialog = document.getElementById('lesson-preview-dialog');
+    const lessonPreviewImage = document.getElementById('lesson-preview-image');
+    const lessonPreviewCaption = document.getElementById('lesson-preview-caption');
+    document.getElementById('lesson-preview-close').addEventListener('click', () => lessonPreviewDialog.close());
+    document.getElementById('lesson-gallery-grid').addEventListener('click', (event) => {
+      const button = event.target.closest('.lesson-preview');
+      if (!button) return;
+      lessonPreviewImage.src = '../assets/img/products/preschool/' + button.dataset.image;
+      lessonPreviewImage.alt = button.dataset.caption;
+      lessonPreviewCaption.textContent = button.dataset.caption;
+      lessonPreviewDialog.showModal();
+    });
+    lessonPreviewDialog.addEventListener('click', (event) => { if (event.target === lessonPreviewDialog) lessonPreviewDialog.close(); });
+    document.getElementById('skill-list').innerHTML = product.skills.map(([n, h, p]) => '<article><b>' + n + '</b><h3>' + h + '</h3><p>' + p + '</p></article>').join('');
+    ['one','two','three'].forEach((slot, index) => document.getElementById('focus-' + slot + '-copy').textContent = product.focus[index]);
+  </script>
+</body>
+</html>
