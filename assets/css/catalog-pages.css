@@ -490,32 +490,30 @@ html,body{margin:0;padding:0}
 
 @media(max-width:700px){.top{display:block;text-align:center}.top-actions{justify-content:center;margin-top:18px}}
 /* 1. ส่วนกรอบครอบรูปภาพ (Container/Wrapper ของรูป) */
+/* 1. ส่วนกล่องอุ้มรูปภาพ */
 .product-card-image,
 .category-card-image,
-.card-img-wrapper {
-    width: 100%;
-    height: 200px; /* ปรับความสูงตามความเหมาะสม */
-    padding: 0 !important; /* ลบระยะขอบด้านในออกเพื่อให้ภาพชิดขอบ */
-    margin: 0;
-    overflow: hidden; /* ซ่อนส่วนเกินเพื่อให้ภาพมนตามมุมของ Card */
-    border-top-left-radius: 16px; /* ปรับมุมโค้งให้เท่ากับกรอบ Card */
-    border-top-right-radius: 16px;
+.card-img-wrapper,
+[class*="product"] figure,
+[class*="card"] figure,
+[class*="thumb"] {
+    width: 100% !important;
+    height: 200px !important; /* ปรับความสูงของกล่องรูปตามต้องการ */
+    padding: 10px !important; /* เพิ่มระยะห่างขอบนิดหน่อยไม่ให้รูปติดขอบเกินไป */
+    margin: 0 !important;
+    overflow: hidden;
+    background-color: #ffffff; /* สีพื้นหลังกล่อง */
 }
 
-/* 2. ตัวไฟล์รูปภาพ (<img>) */
+/* 2. บังคับรูปภาพให้ย่อแสดงครบทั้งใบ */
 .product-card img,
 .category-card img,
-.card-img-wrapper img {
+.card-img-wrapper img,
+[class*="product"] img,
+[class*="card"] img {
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover; /* ขยายรูปภาพให้เต็มพื้นที่กรอบโดยไม่เสียสัดส่วน */
-    display: block;
-}
-.product-card img,
-.category-card img,
-.card-img-wrapper img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: contain !important; /* แสดงรูปครบทั้งใบ ไม่โดนตัดขอบ */
-    background-color: #ffffff; /* ใส่สีพื้นหลังเผื่อรูปภาพมีสัดส่วนไม่พอดีกล่อง */
+    object-fit: contain !important; /* บังคับเห็นภาพครบ ไม่โดนตัดขอบ */
+    object-position: center !important; /* จัดให้อยู่ตรงกลางกล่อง */
+    display: block !important;
 }
