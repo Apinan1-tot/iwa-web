@@ -53,6 +53,22 @@
     });
   }
 
+  // Adds a small, unobtrusive link to the admin panel inside the page footer.
+  // Safe no-op if there's no recognizable footer, or if a link is already there.
+  function addAdminLink() {
+    const footer = document.querySelector('footer.catalog-page__footer, footer');
+    if (!footer || footer.querySelector('[data-admin-entry]')) return;
+    const link = document.createElement('a');
+    link.href = (window.location.pathname.indexOf('/products/') !== -1 ? '../admin/' : 'admin/');
+    link.textContent = 'ระบบจัดการ';
+    link.setAttribute('data-admin-entry', '');
+    link.style.cssText = 'margin-left:10px;opacity:.45;font-size:12px;text-decoration:none;color:inherit;';
+    link.addEventListener('mouseenter', () => { link.style.opacity = '.8'; });
+    link.addEventListener('mouseleave', () => { link.style.opacity = '.45'; });
+    footer.appendChild(document.createTextNode(' · '));
+    footer.appendChild(link);
+  }
+
   function addLinkFeedback() {
     document.querySelectorAll('a, button').forEach((element) => {
       if (!element.closest('.catalog-page__header, main, footer')) return;
@@ -133,6 +149,7 @@
   }
 
   function start() {
+    addAdminLink();
     if (reducedMotion) return;
     root.classList.add('motion-ready');
     initPageTransitions();

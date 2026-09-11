@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
-const SQLiteStore = require('connect-sqlite3')(session);
+const SqliteSessionStore = require('./session-store');
 const path = require('path');
 
 require('./db/database'); // ensures tables exist
@@ -19,7 +19,7 @@ app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
-  store: new SQLiteStore({ dir: path.join(__dirname, '..', 'data'), db: 'sessions.db' }),
+  store: new SqliteSessionStore(),
   secret: process.env.SESSION_SECRET || 'iwa-rich-you-d-change-this-secret-in-env',
   resave: false,
   saveUninitialized: false,

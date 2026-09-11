@@ -55,7 +55,7 @@
           document.getElementById('meta-product-count').textContent = cats.reduce((sum, c) => sum + c.product_count, 0);
           document.getElementById('cat-heading').textContent = `เลือกจาก ${cats.length} หมวดหลัก`;
           grid.innerHTML = cats.map((c) => `
-            <a class="catalog-category-card" href="${escapeHtml(c.slug)}.html">
+            <a class="catalog-category-card" href="category.html?slug=${encodeURIComponent(c.slug)}">
               <span class="catalog-card-photo" aria-hidden="true"></span>
               <span class="catalog-category-card__label">${escapeHtml(c.eyebrow || '')}</span>
               <strong>${escapeHtml(c.name)}</strong>

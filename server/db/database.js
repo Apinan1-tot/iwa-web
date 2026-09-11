@@ -1,13 +1,13 @@
-const Database = require('better-sqlite3');
+const { DatabaseSync } = require('node:sqlite');
 const path = require('path');
 const fs = require('fs');
 
 const DATA_DIR = path.join(__dirname, '..', '..', 'data');
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
-const db = new Database(path.join(DATA_DIR, 'site.db'));
-db.pragma('journal_mode = WAL');
-db.pragma('foreign_keys = ON');
+const db = new DatabaseSync(path.join(DATA_DIR, 'site.db'));
+db.exec('PRAGMA journal_mode = WAL');
+db.exec('PRAGMA foreign_keys = ON');
 
 db.exec(`
 CREATE TABLE IF NOT EXISTS categories (
@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS categories (
   name TEXT NOT NULL,
   eyebrow TEXT,
   description TEXT,
+  is_published INTEGER DEFAULT 1,
   sort_order INTEGER DEFAULT 0,
   created_at TEXT DEFAULT (datetime('now')),
   updated_at TEXT DEFAULT (datetime('now'))
@@ -54,5 +55,17 @@ CREATE TABLE IF NOT EXISTS admins (
   created_at TEXT DEFAULT (datetime('now'))
 );
 `);
+
+// --- Lightweight auto-migration for databases created before a column existed ---
+// Safe to run every startup: only adds the column if it's missing, never touches existing data.
+function ensureColumn(table, column, definition) {
+  const cols = db.prepare(`PRAGMA table_info(${table})`).all();
+  const exists = cols.some((c) => c.name === column);
+  if (!exists) {
+    db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+    console.log(`✔ Migrated: added column "${column}" to "${table}"`);
+  }
+}
+ensureColumn('categories', 'is_published', 'INTEGER DEFAULT 1');
 
 module.exports = db;

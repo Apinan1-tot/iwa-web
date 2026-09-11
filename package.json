@@ -4,17 +4,18 @@
   "description": "IWA RICH YOU D - Website with admin backend for managing products, categories and images",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js",
-    "seed": "node server/db/seed.js"
+    "start": "node --experimental-sqlite server/server.js",
+    "seed": "node --experimental-sqlite server/db/seed.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "better-sqlite3": "^11.3.0",
-    "connect-sqlite3": "^0.9.13",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "multer": "^2.3.0",
     "sharp": "^0.33.4"
+  },
+  "engines": {
+    "node": ">=22.5.0"
   }
 }

@@ -42,13 +42,20 @@ router.post('/categories', (req, res) => {
 });
 
 router.put('/categories/:id', (req, res) => {
-  const { name, eyebrow, description, sort_order } = req.body || {};
+  const { name, eyebrow, description, sort_order, is_published } = req.body || {};
   const cat = db.prepare('SELECT * FROM categories WHERE id = ?').get(req.params.id);
   if (!cat) return res.status(404).json({ error: 'not_found' });
   db.prepare(`
-    UPDATE categories SET name = ?, eyebrow = ?, description = ?, sort_order = ?, updated_at = datetime('now')
+    UPDATE categories SET name = ?, eyebrow = ?, description = ?, sort_order = ?, is_published = ?, updated_at = datetime('now')
     WHERE id = ?
-  `).run(name ?? cat.name, eyebrow ?? cat.eyebrow, description ?? cat.description, sort_order ?? cat.sort_order, cat.id);
+  `).run(
+    name ?? cat.name,
+    eyebrow ?? cat.eyebrow,
+    description ?? cat.description,
+    sort_order ?? cat.sort_order,
+    is_published === undefined ? cat.is_published : (is_published ? 1 : 0),
+    cat.id
+  );
   res.json(db.prepare('SELECT * FROM categories WHERE id = ?').get(cat.id));
 });
 

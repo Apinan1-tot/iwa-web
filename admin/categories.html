@@ -33,14 +33,14 @@
         </div>
         <div class="a-form-row"><label for="new-desc">คำอธิบายหมวดหมู่</label><textarea id="new-desc" style="min-height:60px"></textarea></div>
         <button type="submit" class="a-btn a-btn-primary">+ เพิ่มหมวดหมู่</button>
-        <p class="hint">หมายเหตุ: ระบบจะสร้างหน้าเว็บอัตโนมัติที่ /products/&lt;ชื่อ-หมวด&gt;.html แต่ต้องอัปโหลดไฟล์หน้าเว็บ (HTML) สำหรับหมวดใหม่เองหากต้องการดีไซน์เฉพาะ — หรือใช้ลิงก์ผ่านหน้ารวมสินค้าซึ่งจะพาไปหน้าที่ยังไม่ถูกสร้างหากยังไม่มีไฟล์ กรุณาติดต่อผู้ดูแลระบบเว็บไซต์หากต้องการเพิ่มหมวดหมู่ใหม่ที่มีหน้าเว็บสมบูรณ์</p>
+        <p class="hint">หมวดหมู่ใหม่จะมีหน้าเว็บใช้งานได้ทันทีโดยอัตโนมัติ (ผ่านหน้ารวมสินค้า) ไม่ต้องรอสร้างไฟล์เพิ่ม</p>
       </form>
     </div>
 
     <div class="a-card">
       <h2 style="margin-top:0">หมวดหมู่ทั้งหมด</h2>
       <table>
-        <thead><tr><th>ชื่อหมวดหมู่</th><th>ป้ายกำกับ</th><th>จำนวนสินค้า</th><th style="text-align:right">จัดการ</th></tr></thead>
+        <thead><tr><th>ชื่อหมวดหมู่</th><th>ป้ายกำกับ</th><th>จำนวนสินค้า</th><th>สถานะ</th><th style="text-align:right">จัดการ</th></tr></thead>
         <tbody id="rows"><tr><td colspan="4" class="a-empty">กำลังโหลด...</td></tr></tbody>
       </table>
     </div>
@@ -72,6 +72,7 @@
         <td><strong>${Admin.escapeHtml(c.name)}</strong><div style="font-size:12px;color:#8f8573">${Admin.escapeHtml(c.slug)}</div></td>
         <td>${Admin.escapeHtml(c.eyebrow || '')}</td>
         <td>${c.product_count}</td>
+        <td><span class="a-badge ${c.is_published ? 'a-badge-on' : 'a-badge-off'}" style="cursor:pointer" data-toggle="${c.id}">${c.is_published ? 'แสดงผล' : 'ซ่อนอยู่'}</span></td>
         <td style="text-align:right">
           <div class="a-actions-row" style="justify-content:flex-end">
             <a class="a-btn a-btn-outline a-btn-sm" href="products.html?category_id=${c.id}">ดูสินค้า</a>
@@ -79,10 +80,22 @@
             <button class="a-btn a-btn-danger a-btn-sm" data-delete="${c.id}">ลบ</button>
           </div>
         </td>
-      </tr>`).join('') : '<tr><td colspan="4" class="a-empty">ยังไม่มีหมวดหมู่</td></tr>';
+      </tr>`).join('') : '<tr><td colspan="5" class="a-empty">ยังไม่มีหมวดหมู่</td></tr>';
 
     tbody.querySelectorAll('[data-edit]').forEach((el) => el.addEventListener('click', () => openEdit(el.getAttribute('data-edit'))));
     tbody.querySelectorAll('[data-delete]').forEach((el) => el.addEventListener('click', () => deleteCat(el.getAttribute('data-delete'))));
+    tbody.querySelectorAll('[data-toggle]').forEach((el) => {
+      el.addEventListener('click', async () => {
+        const id = el.getAttribute('data-toggle');
+        const cat = categories.find((x) => x.id == id);
+        try {
+          await Admin.api(`/categories/${id}`, { method: 'PUT', body: { is_published: !cat.is_published } });
+          cat.is_published = cat.is_published ? 0 : 1;
+          render();
+          Admin.toast('อัปเดตสถานะเรียบร้อย');
+        } catch (err) { Admin.toast(err.message, 'error'); }
+      });
+    });
   }
 
   function openEdit(id) {
