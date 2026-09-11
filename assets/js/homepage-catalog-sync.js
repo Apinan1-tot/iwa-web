@@ -20,7 +20,7 @@
     const count = cat.product_count || 0;
 
     return `
-      <a class="catalog-category-card iwa-reveal" href="${href}">
+      <a class="catalog-category-card" href="${href}">
         <span class="catalog-card-photo" aria-hidden="true"></span>
         <span class="catalog-category-card__label">${escapeHtml(eyebrow)}</span>
         <strong>${escapeHtml(cat.name)}</strong>
