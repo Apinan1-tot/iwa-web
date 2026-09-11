@@ -14,6 +14,7 @@
     <a href="dashboard.html" data-nav="dashboard">📊 แดชบอร์ด</a>
     <a href="products.html" data-nav="products">📦 สินค้า</a>
     <a href="categories.html" data-nav="categories">🗂️ หมวดหมู่</a>
+    <a href="activity-log.html" data-nav="activity-log">🕓 ประวัติการแก้ไข</a>
     <a href="account.html" data-nav="account">👤 บัญชีผู้ใช้</a>
     <a href="../" target="_blank">🔗 ดูเว็บไซต์จริง</a>
     <div class="a-sidebar__spacer"></div>
@@ -27,12 +28,21 @@
     <div class="a-card">
       <h2 style="margin-top:0">เพิ่มหมวดหมู่ใหม่</h2>
       <form id="new-cat-form">
+        <div class="a-form-row">
+          <label>รูปภาพหมวดหมู่</label>
+          <div class="a-image-picker">
+            <img id="new-image-preview" src="" alt="" style="display:none">
+            <input type="file" id="new-image-file" accept="image/png,image/jpeg,image/webp,image/gif">
+            <p class="hint">ไม่บังคับ — ถ้าไม่ใส่รูป จะแสดงเป็นพื้นเรียบแทน</p>
+            <input type="hidden" id="new-image-url">
+          </div>
+        </div>
         <div class="a-two-col">
           <div class="a-form-row"><label for="new-name">ชื่อหมวดหมู่ *</label><input type="text" id="new-name" required placeholder="เช่น อุปกรณ์เสริมห้องเรียน"></div>
           <div class="a-form-row"><label for="new-eyebrow">ป้ายกำกับภาษาอังกฤษ</label><input type="text" id="new-eyebrow" placeholder="เช่น CLASSROOM ACCESSORIES"></div>
         </div>
         <div class="a-form-row"><label for="new-desc">คำอธิบายหมวดหมู่</label><textarea id="new-desc" style="min-height:60px"></textarea></div>
-        <button type="submit" class="a-btn a-btn-primary">+ เพิ่มหมวดหมู่</button>
+        <button type="submit" class="a-btn a-btn-primary" id="new-cat-submit">+ เพิ่มหมวดหมู่</button>
         <p class="hint">หมวดหมู่ใหม่จะมีหน้าเว็บใช้งานได้ทันทีโดยอัตโนมัติ (ผ่านหน้ารวมสินค้า) ไม่ต้องรอสร้างไฟล์เพิ่ม</p>
       </form>
     </div>
@@ -40,17 +50,25 @@
     <div class="a-card">
       <h2 style="margin-top:0">หมวดหมู่ทั้งหมด</h2>
       <table>
-        <thead><tr><th>ชื่อหมวดหมู่</th><th>ป้ายกำกับ</th><th>จำนวนสินค้า</th><th>สถานะ</th><th style="text-align:right">จัดการ</th></tr></thead>
-        <tbody id="rows"><tr><td colspan="4" class="a-empty">กำลังโหลด...</td></tr></tbody>
+        <thead><tr><th>รูป</th><th>ชื่อหมวดหมู่</th><th>ป้ายกำกับ</th><th>จำนวนสินค้า</th><th>สถานะ</th><th style="text-align:right">จัดการ</th></tr></thead>
+        <tbody id="rows"><tr><td colspan="6" class="a-empty">กำลังโหลด...</td></tr></tbody>
       </table>
     </div>
   </main>
 </div>
 
-<div id="edit-modal" style="display:none;position:fixed;inset:0;background:rgba(43,38,32,.5);align-items:center;justify-content:center;z-index:50">
-  <div class="a-card" style="width:100%;max-width:480px">
+<div id="edit-modal" style="display:none;position:fixed;inset:0;background:rgba(43,38,32,.5);align-items:center;justify-content:center;z-index:50;padding:20px">
+  <div class="a-card" style="width:100%;max-width:480px;max-height:90vh;overflow-y:auto">
     <h2 style="margin-top:0">แก้ไขหมวดหมู่</h2>
     <input type="hidden" id="edit-id">
+    <div class="a-form-row">
+      <label>รูปภาพหมวดหมู่</label>
+      <div class="a-image-picker">
+        <img id="edit-image-preview" src="" alt="" style="display:none">
+        <input type="file" id="edit-image-file" accept="image/png,image/jpeg,image/webp,image/gif">
+        <input type="hidden" id="edit-image-url">
+      </div>
+    </div>
     <div class="a-form-row"><label>ชื่อหมวดหมู่</label><input type="text" id="edit-name"></div>
     <div class="a-form-row"><label>ป้ายกำกับภาษาอังกฤษ</label><input type="text" id="edit-eyebrow"></div>
     <div class="a-form-row"><label>คำอธิบาย</label><textarea id="edit-desc" style="min-height:60px"></textarea></div>
@@ -64,11 +82,14 @@
 <script src="admin-shared.js"></script>
 <script>
   let categories = [];
+  let newUploadedFile = null;
+  let editUploadedFile = null;
 
   function render() {
     const tbody = document.getElementById('rows');
     tbody.innerHTML = categories.length ? categories.map((c) => `
       <tr>
+        <td><img class="a-thumb" src="${Admin.escapeHtml(c.image || '')}" onerror="this.style.visibility='hidden'"></td>
         <td><strong>${Admin.escapeHtml(c.name)}</strong><div style="font-size:12px;color:#8f8573">${Admin.escapeHtml(c.slug)}</div></td>
         <td>${Admin.escapeHtml(c.eyebrow || '')}</td>
         <td>${c.product_count}</td>
@@ -80,7 +101,7 @@
             <button class="a-btn a-btn-danger a-btn-sm" data-delete="${c.id}">ลบ</button>
           </div>
         </td>
-      </tr>`).join('') : '<tr><td colspan="5" class="a-empty">ยังไม่มีหมวดหมู่</td></tr>';
+      </tr>`).join('') : '<tr><td colspan="6" class="a-empty">ยังไม่มีหมวดหมู่</td></tr>';
 
     tbody.querySelectorAll('[data-edit]').forEach((el) => el.addEventListener('click', () => openEdit(el.getAttribute('data-edit'))));
     tbody.querySelectorAll('[data-delete]').forEach((el) => el.addEventListener('click', () => deleteCat(el.getAttribute('data-delete'))));
@@ -100,10 +121,16 @@
 
   function openEdit(id) {
     const c = categories.find((x) => x.id == id);
+    editUploadedFile = null;
     document.getElementById('edit-id').value = c.id;
     document.getElementById('edit-name').value = c.name;
     document.getElementById('edit-eyebrow').value = c.eyebrow || '';
     document.getElementById('edit-desc').value = c.description || '';
+    document.getElementById('edit-image-url').value = c.image || '';
+    const preview = document.getElementById('edit-image-preview');
+    if (c.image) { preview.src = c.image; preview.style.display = 'block'; }
+    else { preview.src = ''; preview.style.display = 'none'; }
+    document.getElementById('edit-image-file').value = '';
     document.getElementById('edit-modal').style.display = 'flex';
   }
 
@@ -111,21 +138,63 @@
     document.getElementById('edit-modal').style.display = 'none';
   });
 
+  document.getElementById('new-image-file').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    newUploadedFile = file;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = document.getElementById('new-image-preview');
+      img.src = ev.target.result; img.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  document.getElementById('edit-image-file').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    editUploadedFile = file;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = document.getElementById('edit-image-preview');
+      img.src = ev.target.result; img.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  async function uploadIfNeeded(file) {
+    if (!file) return null;
+    const fd = new FormData();
+    fd.append('image', file);
+    const res = await Admin.api('/upload', { method: 'POST', body: fd });
+    return res.url;
+  }
+
   document.getElementById('edit-save').addEventListener('click', async () => {
     const id = document.getElementById('edit-id').value;
+    const btn = document.getElementById('edit-save');
+    btn.disabled = true; btn.textContent = 'กำลังบันทึก...';
     try {
+      let imageUrl = document.getElementById('edit-image-url').value;
+      const uploaded = await uploadIfNeeded(editUploadedFile);
+      if (uploaded) imageUrl = uploaded;
       await Admin.api(`/categories/${id}`, {
         method: 'PUT',
         body: {
           name: document.getElementById('edit-name').value.trim(),
           eyebrow: document.getElementById('edit-eyebrow').value.trim(),
-          description: document.getElementById('edit-desc').value.trim()
+          description: document.getElementById('edit-desc').value.trim(),
+          image: imageUrl
         }
       });
       document.getElementById('edit-modal').style.display = 'none';
       Admin.toast('บันทึกเรียบร้อย');
       await load();
-    } catch (err) { Admin.toast(err.message, 'error'); }
+    } catch (err) {
+      Admin.toast(err.message, 'error');
+    } finally {
+      btn.disabled = false; btn.textContent = 'บันทึก';
+    }
   });
 
   async function deleteCat(id) {
@@ -140,19 +209,29 @@
 
   document.getElementById('new-cat-form').addEventListener('submit', async (e) => {
     e.preventDefault();
+    const btn = document.getElementById('new-cat-submit');
+    btn.disabled = true; btn.textContent = 'กำลังเพิ่ม...';
     try {
+      const imageUrl = await uploadIfNeeded(newUploadedFile);
       await Admin.api('/categories', {
         method: 'POST',
         body: {
           name: document.getElementById('new-name').value.trim(),
           eyebrow: document.getElementById('new-eyebrow').value.trim(),
-          description: document.getElementById('new-desc').value.trim()
+          description: document.getElementById('new-desc').value.trim(),
+          image: imageUrl || ''
         }
       });
       document.getElementById('new-cat-form').reset();
+      document.getElementById('new-image-preview').style.display = 'none';
+      newUploadedFile = null;
       Admin.toast('เพิ่มหมวดหมู่เรียบร้อย');
       await load();
-    } catch (err) { Admin.toast(err.message, 'error'); }
+    } catch (err) {
+      Admin.toast(err.message, 'error');
+    } finally {
+      btn.disabled = false; btn.textContent = '+ เพิ่มหมวดหมู่';
+    }
   });
 
   async function load() {

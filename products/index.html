@@ -56,7 +56,7 @@
           document.getElementById('cat-heading').textContent = `เลือกจาก ${cats.length} หมวดหลัก`;
           grid.innerHTML = cats.map((c) => `
             <a class="catalog-category-card" href="category.html?slug=${encodeURIComponent(c.slug)}">
-              <span class="catalog-card-photo" aria-hidden="true"></span>
+              <span class="catalog-card-photo" aria-hidden="true" style="${c.image ? `background-image:url('${escapeHtml(c.image)}');background-size:cover;background-position:center` : ''}"></span>
               <span class="catalog-category-card__label">${escapeHtml(c.eyebrow || '')}</span>
               <strong>${escapeHtml(c.name)}</strong>
               <span>${escapeHtml(c.description || '')}</span>

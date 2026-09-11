@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const db = require('../db/database');
+const { logActivity } = require('../db/database');
 const { requireLogin } = require('../middleware/auth');
 
 // POST /admin-api/login
@@ -16,6 +17,7 @@ router.post('/login', (req, res) => {
   }
   req.session.adminId = admin.id;
   req.session.username = admin.username;
+  logActivity({ adminUsername: admin.username, action: 'login', entityType: 'admin', entityId: admin.id, entityName: admin.username });
   res.json({ ok: true, username: admin.username });
 });
 

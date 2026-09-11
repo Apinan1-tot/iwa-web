@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/database');
+const { logActivity } = require('../db/database');
 const { requireLogin } = require('../middleware/auth');
 const { upload } = require('../middleware/upload');
 const sharp = require('sharp');
@@ -19,6 +20,13 @@ function slugify(str) {
     .slice(0, 80) || 'item-' + Date.now();
 }
 
+function log(req, action, entityType, entityId, entityName, details) {
+  logActivity({
+    adminUsername: (req.session && req.session.username) || 'unknown',
+    action, entityType, entityId, entityName, details
+  });
+}
+
 /* ---------- CATEGORIES ---------- */
 
 router.get('/categories', (req, res) => {
@@ -30,32 +38,41 @@ router.get('/categories', (req, res) => {
 });
 
 router.post('/categories', (req, res) => {
-  const { name, eyebrow, description, sort_order } = req.body || {};
+  const { name, eyebrow, description, image, sort_order } = req.body || {};
   if (!name) return res.status(400).json({ error: 'missing_name', message: 'กรุณาระบุชื่อหมวดหมู่' });
   let slug = slugify(name);
   const existing = db.prepare('SELECT id FROM categories WHERE slug = ?').get(slug);
   if (existing) slug = slug + '-' + Date.now().toString(36);
   const info = db.prepare(`
-    INSERT INTO categories (slug, name, eyebrow, description, sort_order) VALUES (?, ?, ?, ?, ?)
-  `).run(slug, name, eyebrow || '', description || '', sort_order || 0);
+    INSERT INTO categories (slug, name, eyebrow, description, image, sort_order) VALUES (?, ?, ?, ?, ?, ?)
+  `).run(slug, name, eyebrow || '', description || '', image || '', sort_order || 0);
+  log(req, 'create', 'category', info.lastInsertRowid, name, '');
   res.json(db.prepare('SELECT * FROM categories WHERE id = ?').get(info.lastInsertRowid));
 });
 
 router.put('/categories/:id', (req, res) => {
-  const { name, eyebrow, description, sort_order, is_published } = req.body || {};
+  const { name, eyebrow, description, image, sort_order, is_published } = req.body || {};
   const cat = db.prepare('SELECT * FROM categories WHERE id = ?').get(req.params.id);
   if (!cat) return res.status(404).json({ error: 'not_found' });
+  const nextPublished = is_published === undefined ? cat.is_published : (is_published ? 1 : 0);
   db.prepare(`
-    UPDATE categories SET name = ?, eyebrow = ?, description = ?, sort_order = ?, is_published = ?, updated_at = datetime('now')
+    UPDATE categories SET name = ?, eyebrow = ?, description = ?, image = ?, sort_order = ?, is_published = ?, updated_at = datetime('now')
     WHERE id = ?
   `).run(
     name ?? cat.name,
     eyebrow ?? cat.eyebrow,
     description ?? cat.description,
+    image ?? cat.image,
     sort_order ?? cat.sort_order,
-    is_published === undefined ? cat.is_published : (is_published ? 1 : 0),
+    nextPublished,
     cat.id
   );
+  const wasToggleOnly = is_published !== undefined && name === undefined && eyebrow === undefined && description === undefined && image === undefined;
+  if (wasToggleOnly) {
+    log(req, nextPublished ? 'publish' : 'unpublish', 'category', cat.id, cat.name, '');
+  } else {
+    log(req, 'update', 'category', cat.id, name ?? cat.name, '');
+  }
   res.json(db.prepare('SELECT * FROM categories WHERE id = ?').get(cat.id));
 });
 
@@ -67,6 +84,7 @@ router.delete('/categories/:id', (req, res) => {
     return res.status(400).json({ error: 'has_products', message: `ลบไม่ได้ เพราะยังมีสินค้า ${count} รายการในหมวดนี้ กรุณาย้ายหรือลบสินค้าก่อน` });
   }
   db.prepare('DELETE FROM categories WHERE id = ?').run(cat.id);
+  log(req, 'delete', 'category', cat.id, cat.name, '');
   res.json({ ok: true });
 });
 
@@ -106,6 +124,7 @@ router.post('/products', (req, res) => {
     INSERT INTO products (category_id, slug, name, label, summary, description, image, meta_tags, highlight_title, highlight_body, sort_order, is_published)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(category_id, slug, name, label || '', summary || '', description || '', image || '', meta_tags || '', highlight_title || '', highlight_body || '', sort_order || 0, is_published === false ? 0 : 1);
+  log(req, 'create', 'product', info.lastInsertRowid, name, `หมวดหมู่: ${cat.name}`);
   res.json(db.prepare('SELECT * FROM products WHERE id = ?').get(info.lastInsertRowid));
 });
 
@@ -130,6 +149,12 @@ router.put('/products/:id', (req, res) => {
     UPDATE products SET category_id=?, name=?, label=?, summary=?, description=?, image=?, meta_tags=?, highlight_title=?, highlight_body=?, sort_order=?, is_published=?, updated_at=datetime('now')
     WHERE id = ?
   `).run(merged.category_id, merged.name, merged.label, merged.summary, merged.description, merged.image, merged.meta_tags, merged.highlight_title, merged.highlight_body, merged.sort_order, merged.is_published, product.id);
+  const isToggleOnly = b.is_published !== undefined && Object.keys(b).length === 1;
+  if (isToggleOnly) {
+    log(req, merged.is_published ? 'publish' : 'unpublish', 'product', product.id, merged.name, '');
+  } else {
+    log(req, 'update', 'product', product.id, merged.name, '');
+  }
   res.json(db.prepare('SELECT * FROM products WHERE id = ?').get(product.id));
 });
 
@@ -137,6 +162,7 @@ router.delete('/products/:id', (req, res) => {
   const product = db.prepare('SELECT * FROM products WHERE id = ?').get(req.params.id);
   if (!product) return res.status(404).json({ error: 'not_found' });
   db.prepare('DELETE FROM products WHERE id = ?').run(product.id);
+  log(req, 'delete', 'product', product.id, product.name, '');
   res.json({ ok: true });
 });
 
@@ -153,6 +179,14 @@ router.post('/products/:id/images', (req, res) => {
 router.delete('/product-images/:id', (req, res) => {
   db.prepare('DELETE FROM product_images WHERE id = ?').run(req.params.id);
   res.json({ ok: true });
+});
+
+/* ---------- ACTIVITY LOG ---------- */
+
+router.get('/activity-log', (req, res) => {
+  const limit = Math.min(Number(req.query.limit) || 100, 500);
+  const rows = db.prepare('SELECT * FROM activity_log ORDER BY id DESC LIMIT ?').all(limit);
+  res.json(rows);
 });
 
 /* ---------- IMAGE UPLOAD ---------- */

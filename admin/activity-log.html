@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ประวัติการแก้ไข | IWA RICH YOU D Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+<style>
+.a-log-action{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600}
+.a-log-create{background:#e7f5ec;color:#3a8a5c}
+.a-log-update{background:#eef2fb;color:#3d5ba9}
+.a-log-delete{background:#fdecea;color:#c0463a}
+.a-log-publish{background:#e7f5ec;color:#3a8a5c}
+.a-log-unpublish{background:#f1eae4;color:#8f8573}
+.a-log-login{background:#fff8e6;color:#a67c4d}
+</style>
+</head>
+<body data-page="activity-log">
+<div class="a-shell">
+  <aside class="a-sidebar">
+    <div class="a-sidebar__brand">IWA RICH YOU D<small>ADMIN PANEL</small></div>
+    <a href="dashboard.html" data-nav="dashboard">📊 แดชบอร์ด</a>
+    <a href="products.html" data-nav="products">📦 สินค้า</a>
+    <a href="categories.html" data-nav="categories">🗂️ หมวดหมู่</a>
+    <a href="activity-log.html" data-nav="activity-log">🕓 ประวัติการแก้ไข</a>
+    <a href="account.html" data-nav="account">👤 บัญชีผู้ใช้</a>
+    <a href="../" target="_blank">🔗 ดูเว็บไซต์จริง</a>
+    <div class="a-sidebar__spacer"></div>
+    <a class="a-sidebar__logout" data-logout href="#">ออกจากระบบ</a>
+  </aside>
+  <main class="a-main">
+    <div class="a-topbar">
+      <div><h1>ประวัติการแก้ไข</h1><p>บันทึกอัตโนมัติทุกครั้งที่มีการเพิ่ม/แก้ไข/ลบสินค้าหรือหมวดหมู่ (100 รายการล่าสุด)</p></div>
+    </div>
+    <div class="a-card">
+      <table>
+        <thead><tr><th>เวลา</th><th>ผู้ใช้</th><th>การกระทำ</th><th>ประเภท</th><th>รายการ</th><th>รายละเอียด</th></tr></thead>
+        <tbody id="rows"><tr><td colspan="6" class="a-empty">กำลังโหลด...</td></tr></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+<script src="admin-shared.js"></script>
+<script>
+  const ACTION_LABELS = {
+    create: 'เพิ่มใหม่', update: 'แก้ไข', delete: 'ลบ',
+    publish: 'เปิดแสดงผล', unpublish: 'ซ่อน', login: 'เข้าสู่ระบบ'
+  };
+  const TYPE_LABELS = { product: 'สินค้า', category: 'หมวดหมู่', admin: 'ผู้ดูแลระบบ' };
+
+  function formatTime(iso) {
+    // stored as UTC 'YYYY-MM-DD HH:MM:SS' from SQLite datetime('now')
+    const d = new Date(iso.replace(' ', 'T') + 'Z');
+    if (isNaN(d.getTime())) return iso;
+    return d.toLocaleString('th-TH', { dateStyle: 'medium', timeStyle: 'short' });
+  }
+
+  function render(rows) {
+    const tbody = document.getElementById('rows');
+    if (!rows.length) { tbody.innerHTML = '<tr><td colspan="6" class="a-empty">ยังไม่มีประวัติการแก้ไข</td></tr>'; return; }
+    tbody.innerHTML = rows.map((r) => `
+      <tr>
+        <td style="white-space:nowrap;color:#8f8573;font-size:13px">${formatTime(r.created_at)}</td>
+        <td>${Admin.escapeHtml(r.admin_username)}</td>
+        <td><span class="a-log-action a-log-${r.action}">${ACTION_LABELS[r.action] || r.action}</span></td>
+        <td>${TYPE_LABELS[r.entity_type] || r.entity_type}</td>
+        <td>${Admin.escapeHtml(r.entity_name || '-')}</td>
+        <td style="color:#8f8573;font-size:13px">${Admin.escapeHtml(r.details || '')}</td>
+      </tr>`).join('');
+  }
+
+  (async function () {
+    await Admin.guard();
+    Admin.bindLogout();
+    Admin.setActiveNav();
+    try {
+      const rows = await Admin.api('/activity-log');
+      render(rows);
+    } catch (err) {
+      Admin.toast(err.message, 'error');
+    }
+  })();
+</script>
+</body>
+</html>

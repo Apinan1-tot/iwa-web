@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS categories (
   name TEXT NOT NULL,
   eyebrow TEXT,
   description TEXT,
+  image TEXT,
   is_published INTEGER DEFAULT 1,
   sort_order INTEGER DEFAULT 0,
   created_at TEXT DEFAULT (datetime('now')),
@@ -54,6 +55,17 @@ CREATE TABLE IF NOT EXISTS admins (
   password_hash TEXT NOT NULL,
   created_at TEXT DEFAULT (datetime('now'))
 );
+
+CREATE TABLE IF NOT EXISTS activity_log (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  admin_username TEXT NOT NULL,
+  action TEXT NOT NULL,
+  entity_type TEXT NOT NULL,
+  entity_id INTEGER,
+  entity_name TEXT,
+  details TEXT,
+  created_at TEXT DEFAULT (datetime('now'))
+);
 `);
 
 // --- Lightweight auto-migration for databases created before a column existed ---
@@ -67,5 +79,19 @@ function ensureColumn(table, column, definition) {
   }
 }
 ensureColumn('categories', 'is_published', 'INTEGER DEFAULT 1');
+ensureColumn('categories', 'image', 'TEXT');
+
+// Records an entry in the activity log. Never throws — logging must never break the actual operation.
+function logActivity({ adminUsername, action, entityType, entityId, entityName, details }) {
+  try {
+    db.prepare(`
+      INSERT INTO activity_log (admin_username, action, entity_type, entity_id, entity_name, details)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `).run(adminUsername || 'unknown', action, entityType, entityId || null, entityName || '', details || '');
+  } catch (err) {
+    console.error('activity log write failed:', err.message);
+  }
+}
 
 module.exports = db;
+module.exports.logActivity = logActivity;
