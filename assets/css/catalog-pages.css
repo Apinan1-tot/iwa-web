@@ -221,7 +221,7 @@ html,body{margin:0;padding:0}
 .product-more-link{display:inline-flex;align-items:center;gap:8px;color:var(--c-navy);font:600 14px Kanit,sans-serif}
 .product-more-link b{display:grid;width:24px;height:24px;place-items:center;border:1px solid var(--c-line-soft);border-radius:50%;font-size:15px;font-weight:400;transition:transform .2s ease}
 .product-more-link:hover{color:var(--c-gold)}
-.product-more-link:hover b{}
+
 
 /* cover colour cues per product line, still on-brand */
 .product-detail-simple__cover--phonics,.demo-product-art--phonics{background:#6a441f}
@@ -278,7 +278,7 @@ html,body{margin:0;padding:0}
 .product-long-contact h2{margin:7px 0;color:#fff;font:600 26px Kanit,sans-serif}
 .product-long-contact p{margin:0;color:#e6dcd1;font-size:14px}
 .product-long-contact>a{display:inline-flex;align-items:center;gap:10px;flex:none;padding:12px 18px;border-radius:var(--r-sm);background:#fff;color:var(--c-navy);font:600 14px Kanit,sans-serif;transition:transform .2s ease}
-.product-long-contact>a:hover{}
+
 
 @media(max-width:760px){
   .product-long-hero{grid-template-columns:1fr;padding:52px 20px 0}
@@ -335,7 +335,7 @@ html,body{margin:0;padding:0}
 .vantage-summary__heading p{margin:0;color:#8e7760;font-size:14px;line-height:1.75}
 .vantage-summary__items{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .vantage-summary__items article{padding:16px;border:1px solid var(--c-line-soft);border-radius:var(--r-md);background:#fff;transition:transform .2s ease}
-.vantage-summary__items article:hover{}
+
 .vantage-summary__items b{color:#845526;font:700 10px 'IBM Plex Mono',monospace}
 .vantage-summary__items h3{margin:14px 0 4px;color:#5d3c1b;font:600 15px/1.35 Kanit,sans-serif}
 .vantage-summary__items p{margin:0;color:#947f6a;font-size:12px;line-height:1.55}
@@ -402,7 +402,7 @@ html,body{margin:0;padding:0}
 .preschool-detail-explainer>.product-long-title{max-width:740px}
 .preschool-detail-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:26px}
 .preschool-detail-steps article{padding:22px 20px;border:1px solid var(--c-line-soft);border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-sm);transition:transform .25s var(--ease)}
-.preschool-detail-steps article:hover{}
+
 .preschool-detail-steps b{color:var(--c-gold);font:600 12px 'IBM Plex Mono',monospace}
 .preschool-detail-steps h3{margin:20px 0 7px;color:#5b3b1b;font:600 17px/1.35 Kanit,sans-serif}
 .preschool-detail-steps p{margin:0;color:#927b65;font-size:13px;line-height:1.7}
