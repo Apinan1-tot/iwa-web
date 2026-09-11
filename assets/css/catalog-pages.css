@@ -517,3 +517,26 @@ html,body{margin:0;padding:0}
     object-position: center !important; /* จัดให้อยู่ตรงกลางกล่อง */
     display: block !important;
 }
+/* 1. คืนค่าขนาด Logo ใน Header ให้เล็กปกติ */
+header img, 
+.site-logo, 
+.brand img, 
+[class*="logo"] img,
+a[href*="index"] img {
+    width: auto !important;
+    height: 48px !important; /* ปรับขนาดความสูง Logo ตามต้องการ (เช่น 40px - 50px) */
+    max-height: 50px !important;
+    object-fit: contain !important;
+}
+
+/* 2. ปรับสไตล์เฉพาะรูปสินค้าในตัวการ์ด */
+.product-card-image img,
+.category-card-image img,
+.card-img-wrapper img,
+.product-card img,
+.category-card img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+}
