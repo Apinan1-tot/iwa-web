@@ -489,11 +489,33 @@ html,body{margin:0;padding:0}
 .wrap{width:min(1120px,calc(100% - 48px));margin:0 auto;padding:0 0 72px}
 
 @media(max-width:700px){.top{display:block;text-align:center}.top-actions{justify-content:center;margin-top:18px}}
+/* 1. ส่วนกรอบครอบรูปภาพ (Container/Wrapper ของรูป) */
+.product-card-image,
+.category-card-image,
+.card-img-wrapper {
+    width: 100%;
+    height: 200px; /* ปรับความสูงตามความเหมาะสม */
+    padding: 0 !important; /* ลบระยะขอบด้านในออกเพื่อให้ภาพชิดขอบ */
+    margin: 0;
+    overflow: hidden; /* ซ่อนส่วนเกินเพื่อให้ภาพมนตามมุมของ Card */
+    border-top-left-radius: 16px; /* ปรับมุมโค้งให้เท่ากับกรอบ Card */
+    border-top-right-radius: 16px;
+}
+
+/* 2. ตัวไฟล์รูปภาพ (<img>) */
 .product-card img,
 .category-card img,
 .card-img-wrapper img {
     width: 100% !important;
     height: 100% !important;
-    object-fit: contain !important; /* ย่อรูปให้เห็นครบทั้งใบ ไม่โดนตัดขอบ */
-    background-color: #fff; /* ใส่สีพื้นหลังกล่องเผื่อรูปไม่พอดีอัตราส่วน */
+    object-fit: cover; /* ขยายรูปภาพให้เต็มพื้นที่กรอบโดยไม่เสียสัดส่วน */
+    display: block;
+}
+.product-card img,
+.category-card img,
+.card-img-wrapper img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important; /* แสดงรูปครบทั้งใบ ไม่โดนตัดขอบ */
+    background-color: #ffffff; /* ใส่สีพื้นหลังเผื่อรูปภาพมีสัดส่วนไม่พอดีกล่อง */
 }
